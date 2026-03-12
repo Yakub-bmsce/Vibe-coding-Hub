@@ -5,7 +5,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #a855f7, #c084fc);
+  background: linear-gradient(135deg, #b794f6, #e9b3ff);
   border: none;
   color: white;
   font-size: 28px;
@@ -38,7 +38,7 @@
 
 .chatbot-header {
   padding: 20px;
-  background: linear-gradient(135deg, #a855f7, #c084fc);
+  background: linear-gradient(135deg, #b794f6, #e9b3ff);
   color: white;
   border-bottom: 2px solid var(--border);
   box-shadow: 0 0 20px var(--neon-glow);
@@ -85,7 +85,7 @@
 
 .message.user {
   align-self: flex-end;
-  background: linear-gradient(135deg, #a855f7, #c084fc);
+  background: linear-gradient(135deg, #b794f6, #e9b3ff);
   color: white;
   margin-left: auto;
   box-shadow: 0 0 10px var(--neon-glow);

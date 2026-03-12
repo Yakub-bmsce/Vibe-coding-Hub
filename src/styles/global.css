@@ -8,31 +8,31 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #1a0033 0%, #2d1b4e 25%, #4a2c6d 50%, #6b3fa0 75%, #8b5cf6 100%);
-  color: #e9d5ff;
+  background: linear-gradient(180deg, #1e1147 0%, #2d1b4e 30%, #4a2870 60%, #6b2d9e 100%);
+  color: #e9b3ff;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
 :root {
-  --primary: #a855f7;
+  --primary: #b794f6;
   --primary-dark: #9333ea;
-  --secondary: #c084fc;
-  --accent: #d8b4fe;
+  --secondary: #e9b3ff;
+  --accent: #ff69b4;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  --bg-dark: #1a0033;
-  --bg-card: rgba(45, 27, 78, 0.8);
-  --bg-hover: rgba(74, 44, 109, 0.9);
-  --text-primary: #e9d5ff;
+  --bg-dark: #1e1147;
+  --bg-card: rgba(45, 27, 78, 0.6);
+  --bg-hover: rgba(74, 40, 112, 0.8);
+  --text-primary: #e9b3ff;
   --text-secondary: #c4b5fd;
-  --border: #6b21a8;
-  --purple-light: #c084fc;
-  --purple-medium: #a855f7;
-  --purple-dark: #7e22ce;
-  --neon-purple: #a855f7;
-  --neon-glow: rgba(168, 85, 247, 0.5);
+  --border: #6b2d9e;
+  --purple-light: #e9b3ff;
+  --purple-medium: #b794f6;
+  --purple-dark: #6b2d9e;
+  --neon-purple: #b794f6;
+  --neon-glow: rgba(183, 148, 246, 0.5);
 }
 
 .light-theme {
@@ -61,7 +61,7 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #a855f7, #c084fc);
+  background: linear-gradient(135deg, #b794f6, #e9b3ff);
   color: white;
   box-shadow: 0 4px 15px var(--neon-glow), 0 0 20px var(--neon-glow);
 }
@@ -69,7 +69,7 @@ body {
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px var(--neon-glow), 0 0 30px var(--neon-glow);
-  background: linear-gradient(135deg, #9333ea, #a855f7);
+  background: linear-gradient(135deg, #9333ea, #b794f6);
 }
 
 .btn-secondary {
@@ -118,7 +118,7 @@ input:focus, textarea:focus {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #a855f7, #c084fc, #d8b4fe);
+  background: linear-gradient(135deg, #e9b3ff, #ff69b4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

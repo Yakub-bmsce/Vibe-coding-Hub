@@ -1,6 +1,6 @@
 .roadmap-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a0033 0%, #2d1b4e 25%, #4a2c6d 50%, #6b3fa0 75%, #8b5cf6 100%);
+  background: linear-gradient(180deg, #1e1147 0%, #2d1b4e 30%, #4a2870 60%, #6b2d9e 100%);
 }
 
 .roadmap-content {
@@ -130,7 +130,7 @@
 .completion-modal h2 {
   font-size: 32px;
   margin: 0 0 16px 0;
-  background: linear-gradient(135deg, var(--pink-medium), var(--pink-dark));
+  background: linear-gradient(180deg, #1e1147 0%, #2d1b4e 30%, #4a2870 60%, #6b2d9e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
