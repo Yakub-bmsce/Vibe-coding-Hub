@@ -1,6 +1,6 @@
 .revision-page {
   min-height: 100vh;
-  background: var(--bg-light);
+  background: linear-gradient(135deg, #1a0033 0%, #2d1b4e 25%, #4a2c6d 50%, #6b3fa0 75%, #8b5cf6 100%);
 }
 
 .revision-content {
