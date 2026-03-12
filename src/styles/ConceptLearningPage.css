@@ -1,0 +1,80 @@
+.concept-page {
+  min-height: 100vh;
+  background: var(--bg-dark);
+}
+
+.concept-content {
+  margin-left: 280px;
+  padding: 40px 20px;
+}
+
+.page-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 48px;
+}
+
+.lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.lesson-view {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  margin-bottom: 24px;
+}
+
+.lesson-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.lesson-header h2 {
+  font-size: 36px;
+  margin: 0;
+}
+
+.skeleton-loader {
+  margin-top: 24px;
+}
+
+.lesson-content {
+  margin-bottom: 24px;
+  padding: 32px;
+}
+
+.lesson-content pre {
+  margin: 0 0 32px 0;
+  font-family: inherit;
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+
+.lesson-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.quiz-section {
+  text-align: center;
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+}
+
+.quiz-section h3 {
+  margin: 0 0 16px 0;
+  font-size: 24px;
+}
+
+@media (max-width: 768px) {
+  .concept-content {
+    margin-left: 0;
+  }
+}

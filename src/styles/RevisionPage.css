@@ -1,0 +1,77 @@
+.revision-page {
+  min-height: 100vh;
+  background: var(--bg-dark);
+}
+
+.revision-content {
+  margin-left: 280px;
+  padding: 40px 20px;
+}
+
+.category-filter {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 32px 0;
+}
+
+.revision-cards-section,
+.flashcards-section {
+  margin-bottom: 64px;
+}
+
+.revision-cards-section h2,
+.flashcards-section h2 {
+  font-size: 28px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.revision-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.revision-card {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.revision-card-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.revision-card h3 {
+  font-size: 20px;
+  margin: 0 0 12px 0;
+  color: var(--primary);
+}
+
+.revision-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.flashcards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.flashcard-item {
+  animation: fadeIn 0.6s;
+}
+
+@media (max-width: 768px) {
+  .revision-content {
+    margin-left: 0;
+  }
+  
+  .flashcards-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,41 @@
+.lesson-card {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.lesson-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.lesson-card h3 {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+}
+
+.lesson-card p {
+  color: var(--text-secondary);
+  margin: 0 0 16px 0;
+  font-size: 14px;
+}
+
+.lesson-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.lesson-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--success);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}

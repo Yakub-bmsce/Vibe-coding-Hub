@@ -1,0 +1,249 @@
+.game-page {
+  min-height: 100vh;
+  background: var(--bg-dark);
+}
+
+.game-content {
+  margin-left: 280px;
+  padding: 40px 20px;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.game-view {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.game-header {
+  text-align: center;
+  margin: 32px 0;
+}
+
+.game-header h2 {
+  font-size: 36px;
+  margin: 0;
+}
+
+.flashcard-game {
+  text-align: center;
+}
+
+.flashcards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.flashcard-wrapper {
+  animation: fadeIn 0.6s;
+}
+
+.quiz-game {
+  max-width: 700px;
+  margin: 32px auto;
+  padding: 48px;
+  text-align: center;
+}
+
+.quiz-progress {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.quiz-game h3 {
+  font-size: 24px;
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.quiz-option {
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.quiz-option:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.quiz-score {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.game-placeholder {
+  text-align: center;
+  padding: 80px 40px;
+  margin-top: 48px;
+}
+
+.game-placeholder p {
+  font-size: 20px;
+  margin-bottom: 24px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .game-content {
+    margin-left: 0;
+  }
+  
+  .flashcards-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Matching Game */
+.matching-game {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 32px;
+}
+
+.game-instruction {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.matching-score {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 24px;
+}
+
+.matching-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.matching-column h3 {
+  text-align: center;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+
+.matching-item {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: var(--bg-hover);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: left;
+}
+
+.matching-item:hover:not(:disabled) {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: translateX(4px);
+}
+
+.matching-item.selected {
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: white;
+}
+
+.matching-item.matched {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Code Completion Game */
+.code-completion-game {
+  max-width: 700px;
+  margin: 32px auto;
+  padding: 32px;
+}
+
+.code-block {
+  background: var(--bg-dark);
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 24px 0;
+  color: var(--text-primary);
+  overflow-x: auto;
+}
+
+/* Drag & Drop Game */
+.drag-drop-game {
+  max-width: 700px;
+  margin: 32px auto;
+  padding: 32px;
+}
+
+.drag-drop-container {
+  margin: 24px 0;
+}
+
+.drag-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: var(--bg-hover);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: move;
+  transition: all 0.3s;
+}
+
+.drag-item:hover {
+  background: var(--bg-card);
+  border-color: var(--primary);
+  transform: scale(1.02);
+}
+
+.drag-handle {
+  font-size: 20px;
+  color: var(--text-secondary);
+  cursor: grab;
+}
+
+.drag-item code {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .matching-grid {
+    grid-template-columns: 1fr;
+  }
+}

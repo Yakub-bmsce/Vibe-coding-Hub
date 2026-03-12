@@ -1,0 +1,196 @@
+.dashboard-page {
+  min-height: 100vh;
+  background: var(--bg-dark);
+}
+
+.dashboard-content {
+  margin-left: 280px;
+  padding: 40px 20px;
+  transition: margin-left 0.3s;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.hero-section h1 {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: var(--text-secondary);
+}
+
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+}
+
+.stat-icon {
+  font-size: 48px;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-hover);
+  border-radius: 12px;
+}
+
+.stat-info h3 {
+  font-size: 24px;
+  margin: 0 0 4px 0;
+  color: var(--text-primary);
+}
+
+.stat-info p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.progress-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 48px;
+}
+
+.progress-section h3 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 24px;
+  background: var(--bg-hover);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 12px;
+  transition: width 0.5s ease;
+}
+
+.progress-section p {
+  text-align: center;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.search-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 48px;
+}
+
+.search-section h2 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+}
+
+.search-section > p {
+  color: var(--text-secondary);
+  margin: 0 0 24px 0;
+}
+
+.search-box {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.search-box input {
+  flex: 1;
+}
+
+.recovery-result {
+  margin-top: 24px;
+  background: var(--bg-hover);
+}
+
+.recovery-result pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.learning-paths {
+  margin-bottom: 48px;
+}
+
+.learning-paths h2 {
+  font-size: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.paths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.path-card {
+  text-align: center;
+  cursor: pointer;
+  padding: 40px 24px;
+}
+
+.path-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.path-card h3 {
+  font-size: 24px;
+  margin: 0 0 12px 0;
+}
+
+.path-card p {
+  color: var(--text-secondary);
+  margin: 0 0 24px 0;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    margin-left: 0;
+  }
+  
+  .hero-section h1 {
+    font-size: 32px;
+  }
+  
+  .search-box {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,160 @@
+.roadmap-page {
+  min-height: 100vh;
+  background: var(--bg-dark);
+}
+
+.roadmap-content {
+  margin-left: 280px;
+  padding: 40px 20px;
+}
+
+.roadmap-container {
+  position: relative;
+  min-height: 600px;
+  margin-top: 48px;
+}
+
+.roadmap-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.connection {
+  stroke: var(--border);
+  stroke-width: 3;
+  transition: all 0.3s;
+}
+
+.connection.active {
+  stroke: var(--primary);
+  stroke-width: 4;
+  filter: drop-shadow(0 0 8px var(--primary));
+  animation: pulse 2s infinite;
+}
+
+.roadmap-nodes {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  grid-auto-rows: 250px;
+  gap: 50px;
+  justify-content: center;
+  padding: 50px;
+  z-index: 1;
+}
+
+.node-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lesson-view {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.lesson-header {
+  text-align: center;
+  margin: 32px 0;
+}
+
+.lesson-header h2 {
+  font-size: 36px;
+  margin: 0;
+}
+
+.lesson-content {
+  padding: 32px;
+  text-align: center;
+}
+
+.lesson-content pre {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+  .roadmap-nodes {
+    grid-template-columns: repeat(2, 200px);
+  }
+}
+
+@media (max-width: 768px) {
+  .roadmap-content {
+    margin-left: 0;
+  }
+  
+  .roadmap-nodes {
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+}
+
+.completion-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s;
+}
+
+.completion-modal {
+  max-width: 500px;
+  padding: 48px;
+  text-align: center;
+  animation: fadeIn 0.5s;
+}
+
+.completion-icon {
+  font-size: 80px;
+  margin-bottom: 24px;
+  animation: bounce 1s infinite;
+}
+
+.completion-modal h2 {
+  font-size: 32px;
+  margin: 0 0 16px 0;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.completion-modal p {
+  color: var(--text-secondary);
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.completion-message {
+  color: var(--text-primary);
+  font-size: 16px;
+  margin: 24px 0;
+  padding: 16px;
+  background: var(--bg-hover);
+  border-radius: 8px;
+}
+
+.completion-modal .btn {
+  margin-top: 24px;
+  padding: 16px 32px;
+  font-size: 18px;
+}
+
+.completion-note {
+  font-size: 14px;
+  color: var(--primary);
+  margin-top: 16px;
+  font-style: italic;
+}
