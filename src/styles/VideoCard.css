@@ -2,8 +2,8 @@
   cursor: pointer;
   padding: 0;
   overflow: hidden;
-  background: white;
-  border: 2px solid var(--pink-light);
+  background: rgba(20, 15, 30, 0.8);
+  border: 2px solid rgba(183, 148, 246, 0.2);
   transition: all 0.3s;
 }
 

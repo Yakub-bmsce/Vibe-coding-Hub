@@ -46,9 +46,9 @@
 .lesson-content {
   margin-bottom: 24px;
   padding: 32px;
-  background: white;
+  background: rgba(20, 15, 30, 0.8);
   border-radius: 16px;
-  border: 2px solid var(--pink-light);
+  border: 2px solid rgba(183, 148, 246, 0.2);
   box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
@@ -71,7 +71,7 @@
   padding: 32px;
   background: linear-gradient(180deg, #1e1147 0%, #2d1b4e 30%, #4a2870 60%, #6b2d9e 100%);
   border-radius: 16px;
-  border: 2px solid var(--pink-light);
+  border: 2px solid rgba(183, 148, 246, 0.2);
   box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
