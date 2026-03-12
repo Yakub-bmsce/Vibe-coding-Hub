@@ -69,12 +69,12 @@ const ChatbotWidget = () => {
 
   const handleMouseMove = useCallback((e) => {
     if (isDragging) {
-      const newX = window.innerWidth - e.clientX - (400 - dragOffset.x);
+      const newX = window.innerWidth - e.clientX - (420 - dragOffset.x);
       const newY = e.clientY - dragOffset.y;
       
       // Keep within viewport bounds
-      const maxX = window.innerWidth - 400 - 24;
-      const maxY = window.innerHeight - 600 - 24;
+      const maxX = window.innerWidth - 420 - 24;
+      const maxY = window.innerHeight - 650 - 24;
       
       setPosition({
         x: Math.max(24, Math.min(newX, maxX)),
