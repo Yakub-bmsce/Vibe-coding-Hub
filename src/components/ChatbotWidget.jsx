@@ -57,28 +57,36 @@ const ChatbotWidget = () => {
   };
 
   const handleMouseDown = (e) => {
-    if (e.target.closest('.chatbot-header')) {
+    const header = e.target.closest('.chatbot-header');
+    if (header && chatWindowRef.current) {
       setIsDragging(true);
       const rect = chatWindowRef.current.getBoundingClientRect();
       setDragOffset({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
       });
+      e.preventDefault();
     }
   };
 
   const handleMouseMove = useCallback((e) => {
-    if (isDragging) {
-      const newX = window.innerWidth - e.clientX - (420 - dragOffset.x);
-      const newY = e.clientY - dragOffset.y;
+    if (isDragging && chatWindowRef.current) {
+      e.preventDefault();
+      
+      // Calculate new position
+      const newLeft = e.clientX - dragOffset.x;
+      const newTop = e.clientY - dragOffset.y;
       
       // Keep within viewport bounds
-      const maxX = window.innerWidth - 420 - 24;
-      const maxY = window.innerHeight - 650 - 24;
+      const maxLeft = window.innerWidth - 420;
+      const maxTop = window.innerHeight - 650;
+      
+      const boundedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+      const boundedTop = Math.max(0, Math.min(newTop, maxTop));
       
       setPosition({
-        x: Math.max(24, Math.min(newX, maxX)),
-        y: Math.max(24, Math.min(newY, maxY))
+        x: window.innerWidth - boundedLeft - 420,
+        y: boundedTop
       });
     }
   }, [isDragging, dragOffset]);
@@ -122,10 +130,9 @@ const ChatbotWidget = () => {
           <div 
             className="chatbot-header" 
             onMouseDown={handleMouseDown}
-            style={{ cursor: 'grab' }}
           >
-            <h3>AI Tutor 🤖</h3>
-            <p>Ask me anything about programming!</p>
+            <h3>✨ AI Tutor</h3>
+            <p>Drag me anywhere! Ask me anything!</p>
           </div>
 
           <div className="chatbot-messages">
