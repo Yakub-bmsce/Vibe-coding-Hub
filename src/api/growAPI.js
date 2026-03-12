@@ -12,8 +12,6 @@ const preferredChannels = [
 
 export const searchVideos = async (query) => {
   try {
-    const channelQuery = preferredChannels.map(ch => `${query} ${ch}`).join(' OR ');
-    
     const response = await fetch(
       `${YOUTUBE_API_URL}?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=12&key=${YOUTUBE_API_KEY}`
     );

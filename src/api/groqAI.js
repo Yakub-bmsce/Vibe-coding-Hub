@@ -1,7 +1,7 @@
 const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-const lessonCache = {};
+// Removed lessonCache - we don't cache anymore for fresh content
 
 export const generateLesson = async (topic) => {
   // Remove caching - always generate fresh content

@@ -14,6 +14,7 @@ const FlashcardCarousel = ({ flashcards: initialFlashcards, onComplete }) => {
     if (flashcards.length === 0) {
       generateInitialCards();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const generateInitialCards = async () => {
