@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { chatWithAI } from '../api/groqAI';
 import '../styles/ChatbotWidget.css';
 
@@ -67,7 +67,7 @@ const ChatbotWidget = () => {
     }
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (isDragging) {
       const newX = window.innerWidth - e.clientX - (400 - dragOffset.x);
       const newY = e.clientY - dragOffset.y;
@@ -81,11 +81,11 @@ const ChatbotWidget = () => {
         y: Math.max(24, Math.min(newY, maxY))
       });
     }
-  };
+  }, [isDragging, dragOffset]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (isDragging) {
@@ -96,7 +96,7 @@ const ChatbotWidget = () => {
         document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging, dragOffset]);
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
     <>
