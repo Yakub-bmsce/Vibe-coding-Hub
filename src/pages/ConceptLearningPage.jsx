@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import LessonCard from '../components/LessonCard';
@@ -12,7 +12,6 @@ const ConceptLearningPage = () => {
   const [lessonContent, setLessonContent] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
-  const [quizScore, setQuizScore] = useState(0);
 
   const lessons = [
     { id: 1, title: 'Variables & Data Types', icon: '📦', description: 'Learn about storing data', duration: '15 min', xp: 50 },

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import { getCurrentLevel, getProgressToNextLevel } from '../utils/xpSystem';
-import { getStreak, updateStreak } from '../utils/progressTracker';
+import { updateStreak } from '../utils/progressTracker';
 import { generateClassRecovery } from '../api/groqAI';
 import '../styles/DashboardPage.css';
 

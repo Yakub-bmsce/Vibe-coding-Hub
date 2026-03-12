@@ -1,15 +1,6 @@
 const YOUTUBE_API_KEY = process.env.REACT_APP_GROW_API_KEY;
 const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
 
-const preferredChannels = [
-  'freecodecamp',
-  'traversymedia',
-  'programmingwithmosh',
-  'fireship',
-  'thenetninjauk',
-  'webdevsimplified'
-];
-
 export const searchVideos = async (query) => {
   try {
     const response = await fetch(
