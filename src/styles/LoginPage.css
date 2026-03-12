@@ -63,14 +63,14 @@
 .login-card {
   position: relative;
   z-index: 1;
-  background: rgba(45, 27, 78, 0.7);
+  background: rgba(20, 15, 30, 0.95);
   backdrop-filter: blur(20px);
-  border: 2px solid rgba(183, 148, 246, 0.3);
+  border: 2px solid rgba(183, 148, 246, 0.2);
   border-radius: 24px;
   padding: 48px;
   width: 100%;
   max-width: 450px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px var(--neon-glow);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(183, 148, 246, 0.2);
 }
 
 .login-header {
@@ -163,12 +163,13 @@
   padding: 14px;
   font-size: 16px;
   margin-top: 8px;
-  background: linear-gradient(135deg, #7e22ce, #9333ea);
+  background: linear-gradient(90deg, #ff69b4, #b794f6, #10b981);
   color: white;
   border: none;
+  font-weight: 600;
 }
 
 .demo-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--neon-glow), 0 0 30px var(--neon-glow);
+  box-shadow: 0 8px 20px rgba(183, 148, 246, 0.4);
 }
