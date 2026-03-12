@@ -1,6 +1,6 @@
 .video-page {
   min-height: 100vh;
-  background: var(--bg-dark);
+  background: var(--bg-light);
 }
 
 .video-content {
@@ -27,23 +27,30 @@
 
 .topic-tag {
   padding: 8px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: white;
+  border: 2px solid var(--pink-light);
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s;
   font-size: 14px;
+  color: var(--pink-dark);
 }
 
 .topic-tag:hover {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: var(--pink-medium);
+  border-color: var(--pink-medium);
   transform: translateY(-2px);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
 }
 
 .video-player-section {
   margin: 32px 0;
   padding: 24px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid var(--pink-light);
+  box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
 .video-player {

@@ -1,6 +1,6 @@
 .game-page {
   min-height: 100vh;
-  background: var(--bg-dark);
+  background: var(--bg-light);
 }
 
 .game-content {
@@ -50,6 +50,10 @@
   margin: 32px auto;
   padding: 48px;
   text-align: center;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid var(--pink-light);
+  box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
 .quiz-progress {
@@ -79,15 +83,15 @@
 }
 
 .quiz-option:hover {
-  background: var(--primary);
+  background: var(--pink-medium);
   color: white;
-  border-color: var(--primary);
+  border-color: var(--pink-medium);
 }
 
 .quiz-score {
   font-size: 20px;
   font-weight: 600;
-  color: var(--primary);
+  color: var(--pink-dark);
 }
 
 .game-placeholder {
@@ -117,6 +121,10 @@
   max-width: 900px;
   margin: 32px auto;
   padding: 32px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid var(--pink-light);
+  box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
 .game-instruction {
@@ -130,7 +138,7 @@
   text-align: center;
   font-size: 20px;
   font-weight: 600;
-  color: var(--primary);
+  color: var(--pink-dark);
   margin-bottom: 24px;
 }
 
@@ -143,15 +151,15 @@
 .matching-column h3 {
   text-align: center;
   margin-bottom: 16px;
-  color: var(--primary);
+  color: var(--pink-dark);
 }
 
 .matching-item {
   width: 100%;
   padding: 16px;
   margin-bottom: 12px;
-  background: var(--bg-hover);
-  border: 2px solid var(--border);
+  background: var(--pink-light);
+  border: 2px solid var(--pink-light);
   border-radius: 8px;
   color: var(--text-primary);
   cursor: pointer;
@@ -160,14 +168,15 @@
 }
 
 .matching-item:hover:not(:disabled) {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: var(--pink-medium);
+  border-color: var(--pink-medium);
   transform: translateX(4px);
+  color: white;
 }
 
 .matching-item.selected {
-  background: var(--secondary);
-  border-color: var(--secondary);
+  background: var(--pink-medium);
+  border-color: var(--pink-medium);
   color: white;
 }
 
@@ -184,13 +193,17 @@
   max-width: 700px;
   margin: 32px auto;
   padding: 32px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid var(--pink-light);
+  box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
 .code-block {
-  background: var(--bg-dark);
+  background: var(--pink-light);
   padding: 24px;
   border-radius: 8px;
-  border: 1px solid var(--border);
+  border: 2px solid var(--pink-light);
   font-family: 'Courier New', monospace;
   font-size: 16px;
   line-height: 1.6;
@@ -204,6 +217,10 @@
   max-width: 700px;
   margin: 32px auto;
   padding: 32px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid var(--pink-light);
+  box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
 .drag-drop-container {
@@ -216,16 +233,16 @@
   gap: 12px;
   padding: 16px;
   margin-bottom: 12px;
-  background: var(--bg-hover);
-  border: 2px solid var(--border);
+  background: var(--pink-light);
+  border: 2px solid var(--pink-light);
   border-radius: 8px;
   cursor: move;
   transition: all 0.3s;
 }
 
 .drag-item:hover {
-  background: var(--bg-card);
-  border-color: var(--primary);
+  background: white;
+  border-color: var(--pink-medium);
   transform: scale(1.02);
 }
 

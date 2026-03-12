@@ -1,6 +1,6 @@
 .concept-page {
   min-height: 100vh;
-  background: var(--bg-dark);
+  background: var(--bg-light);
 }
 
 .concept-content {
@@ -46,6 +46,10 @@
 .lesson-content {
   margin-bottom: 24px;
   padding: 32px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid var(--pink-light);
+  box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
 .lesson-content pre {
@@ -65,7 +69,10 @@
 .quiz-section {
   text-align: center;
   padding: 32px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.3), rgba(255, 105, 180, 0.2));
+  border-radius: 16px;
+  border: 2px solid var(--pink-light);
+  box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
 }
 
 .quiz-section h3 {

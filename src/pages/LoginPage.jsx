@@ -42,12 +42,6 @@ const LoginPage = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
-          <div className="demo-credentials">
-            <p className="demo-label">🎯 Demo Credentials</p>
-            <p className="demo-info">Email: demo@vibelearning.com</p>
-            <p className="demo-info">Password: demo123</p>
-          </div>
-
           <div className="form-group">
             <label>Email</label>
             <input

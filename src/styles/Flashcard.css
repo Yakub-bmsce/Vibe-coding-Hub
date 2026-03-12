@@ -8,23 +8,24 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: var(--bg-card);
-  border: 2px solid var(--border);
+  background: white;
+  border: 2px solid var(--pink-light);
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.2);
 }
 
 .flip-card-front {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.3), rgba(255, 105, 180, 0.2));
 }
 
 .flip-card-back {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(219, 39, 119, 0.2));
 }
 
 .card-label {
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--primary);
+  color: var(--pink-dark);
   letter-spacing: 1px;
 }
 
