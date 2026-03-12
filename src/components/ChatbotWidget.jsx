@@ -7,9 +7,9 @@ const ChatbotWidget = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [position, setPosition] = useState({ x: 24, y: 100 });
+  const [position, setPosition] = useState({ left: null, top: 100, right: 24, bottom: null });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const messagesEndRef = useRef(null);
   const chatWindowRef = useRef(null);
 
@@ -57,39 +57,47 @@ const ChatbotWidget = () => {
   };
 
   const handleMouseDown = (e) => {
-    const header = e.target.closest('.chatbot-header');
-    if (header && chatWindowRef.current) {
+    if (e.target.closest('.chatbot-header')) {
       setIsDragging(true);
-      const rect = chatWindowRef.current.getBoundingClientRect();
-      setDragOffset({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
+      setDragStart({
+        x: e.clientX,
+        y: e.clientY
       });
       e.preventDefault();
     }
   };
 
   const handleMouseMove = useCallback((e) => {
-    if (isDragging && chatWindowRef.current) {
-      e.preventDefault();
-      
-      // Calculate new position
-      const newLeft = e.clientX - dragOffset.x;
-      const newTop = e.clientY - dragOffset.y;
-      
-      // Keep within viewport bounds
-      const maxLeft = window.innerWidth - 420;
-      const maxTop = window.innerHeight - 650;
-      
-      const boundedLeft = Math.max(0, Math.min(newLeft, maxLeft));
-      const boundedTop = Math.max(0, Math.min(newTop, maxTop));
-      
-      setPosition({
-        x: window.innerWidth - boundedLeft - 420,
-        y: boundedTop
-      });
-    }
-  }, [isDragging, dragOffset]);
+    if (!isDragging || !chatWindowRef.current) return;
+    
+    e.preventDefault();
+    
+    const deltaX = e.clientX - dragStart.x;
+    const deltaY = e.clientY - dragStart.y;
+    
+    const rect = chatWindowRef.current.getBoundingClientRect();
+    const newLeft = rect.left + deltaX;
+    const newTop = rect.top + deltaY;
+    
+    // Keep within bounds
+    const maxLeft = window.innerWidth - 420;
+    const maxTop = window.innerHeight - 650;
+    
+    const boundedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+    const boundedTop = Math.max(0, Math.min(newTop, maxTop));
+    
+    setPosition({
+      left: boundedLeft,
+      top: boundedTop,
+      right: null,
+      bottom: null
+    });
+    
+    setDragStart({
+      x: e.clientX,
+      y: e.clientY
+    });
+  }, [isDragging, dragStart]);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -121,9 +129,10 @@ const ChatbotWidget = () => {
           ref={chatWindowRef}
           className="chatbot-window fade-in" 
           style={{ 
-            right: `${position.x}px`, 
-            top: `${position.y}px`,
-            bottom: 'auto',
+            left: position.left !== null ? `${position.left}px` : 'auto',
+            top: position.top !== null ? `${position.top}px` : 'auto',
+            right: position.right !== null ? `${position.right}px` : 'auto',
+            bottom: position.bottom !== null ? `${position.bottom}px` : 'auto',
             cursor: isDragging ? 'grabbing' : 'default'
           }}
         >
