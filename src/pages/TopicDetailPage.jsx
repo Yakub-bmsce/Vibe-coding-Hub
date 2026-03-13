@@ -189,9 +189,16 @@ const TopicDetailPage = () => {
                     <div className="explanation-content">
                       <pre>{explanation}</pre>
                     </div>
-                    <button className="btn btn-secondary" onClick={handleSimplify}>
-                      🤔 I still don't understand - Simplify more
-                    </button>
+                    <div className="concept-actions">
+                      <button className="btn btn-secondary" onClick={handleSimplify}>
+                        🤔 I still don't understand - Simplify more
+                      </button>
+                      {nextTopic && (
+                        <button className="btn btn-success" onClick={handleNextTopic}>
+                          ✅ I understood - Next: {nextTopic.name}
+                        </button>
+                      )}
+                    </div>
                   </>
                 )}
               </div>
@@ -220,15 +227,24 @@ const TopicDetailPage = () => {
                       </div>
                     )}
                     {!selectedVideo && (
-                      <div className="videos-grid">
-                        {videos.map((video, idx) => (
-                          <div key={idx} className="video-card" onClick={() => setSelectedVideo(video)}>
-                            <img src={video.thumbnail} alt={video.title} />
-                            <h3>{video.title}</h3>
-                            <p>{video.channel}</p>
+                      <>
+                        <div className="videos-grid">
+                          {videos.map((video, idx) => (
+                            <div key={idx} className="video-card" onClick={() => setSelectedVideo(video)}>
+                              <img src={video.thumbnail} alt={video.title} />
+                              <h3>{video.title}</h3>
+                              <p>{video.channel}</p>
+                            </div>
+                          ))}
+                        </div>
+                        {nextTopic && (
+                          <div className="concept-actions" style={{ marginTop: '2rem' }}>
+                            <button className="btn btn-success" onClick={handleNextTopic}>
+                              ✅ I understood - Next: {nextTopic.name}
+                            </button>
                           </div>
-                        ))}
-                      </div>
+                        )}
+                      </>
                     )}
                   </>
                 )}
@@ -240,13 +256,22 @@ const TopicDetailPage = () => {
                 {isLoadingQuiz ? (
                   <div className="loading">Loading quiz...</div>
                 ) : (
-                  <div className="quiz-content">
-                    <h2>🎯 Topic Quiz</h2>
-                    <pre>{quiz}</pre>
-                    <button className="btn btn-primary" onClick={loadQuiz}>
-                      🔄 Generate New Quiz
-                    </button>
-                  </div>
+                  <>
+                    <div className="quiz-content">
+                      <h2>🎯 Topic Quiz</h2>
+                      <pre>{quiz}</pre>
+                      <button className="btn btn-primary" onClick={loadQuiz}>
+                        🔄 Generate New Quiz
+                      </button>
+                    </div>
+                    {nextTopic && (
+                      <div className="concept-actions" style={{ marginTop: '2rem' }}>
+                        <button className="btn btn-success" onClick={handleNextTopic}>
+                          ✅ I understood - Next: {nextTopic.name}
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
