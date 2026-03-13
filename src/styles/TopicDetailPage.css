@@ -468,6 +468,9 @@
   transition: all 0.3s ease;
   text-align: left;
   font-size: 1rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .quiz-option:hover:not(:disabled) {

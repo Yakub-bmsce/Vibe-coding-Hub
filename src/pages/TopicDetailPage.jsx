@@ -82,9 +82,24 @@ const TopicDetailPage = () => {
     setShowResults(false);
     try {
       const result = await generateTopicQuiz(topic.name, 5);
+      console.log('Quiz loaded:', result); // Debug log
       setQuiz(result);
     } catch (error) {
       console.error('Quiz loading error:', error);
+      // Set fallback quiz if API fails
+      setQuiz([
+        {
+          question: `What is the main purpose of ${topic.name}?`,
+          options: [
+            'To solve complex problems',
+            'To make development easier',
+            'To improve performance',
+            'All of the above'
+          ],
+          correctAnswer: 3,
+          explanation: 'This is a sample question. Click "Try New Quiz" to generate AI questions.'
+        }
+      ]);
     } finally {
       setIsLoadingQuiz(false);
     }
@@ -285,7 +300,7 @@ const TopicDetailPage = () => {
                   <div className="loading">Loading quiz...</div>
                 ) : (
                   <>
-                    {quiz && Array.isArray(quiz) ? (
+                    {quiz && Array.isArray(quiz) && quiz.length > 0 ? (
                       <div className="quiz-container">
                         <h2>🎯 Topic Quiz</h2>
                         {showResults && (
@@ -301,7 +316,7 @@ const TopicDetailPage = () => {
                             <p className="question-text">{question.question}</p>
                             
                             <div className="quiz-options">
-                              {question.options.map((option, oIdx) => {
+                              {question.options && question.options.map((option, oIdx) => {
                                 const isSelected = userAnswers[qIdx] === oIdx;
                                 const isCorrect = question.correctAnswer === oIdx;
                                 const showCorrect = showResults && isCorrect;
@@ -323,7 +338,7 @@ const TopicDetailPage = () => {
                               })}
                             </div>
                             
-                            {showResults && (
+                            {showResults && question.explanation && (
                               <div className="question-explanation">
                                 <strong>Explanation:</strong> {question.explanation}
                               </div>
@@ -338,7 +353,7 @@ const TopicDetailPage = () => {
                               onClick={handleSubmitQuiz}
                               disabled={Object.keys(userAnswers).length !== quiz.length}
                             >
-                              Submit Quiz
+                              Submit Quiz ({Object.keys(userAnswers).length}/{quiz.length} answered)
                             </button>
                           ) : (
                             <button className="btn btn-primary" onClick={loadQuiz}>
@@ -353,6 +368,7 @@ const TopicDetailPage = () => {
                         <button className="btn btn-primary" onClick={loadQuiz}>
                           🔄 Generate Quiz
                         </button>
+                        {quiz && <pre style={{color: '#e9b3ff', fontSize: '0.8rem', marginTop: '1rem'}}>Debug: {JSON.stringify(quiz, null, 2)}</pre>}
                       </div>
                     )}
                     
