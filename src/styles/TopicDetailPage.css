@@ -218,92 +218,378 @@
   margin-bottom: 1.5rem;
 }
 
-.roadmap-tab h2 {
+.roadmap-tab {
+  animation: fadeIn 0.5s ease;
+}
+
+.roadmap-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.roadmap-header h2 {
   color: #e9b3ff;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.mini-roadmap {
-  background: rgba(30, 17, 71, 0.5);
-  padding: 2rem;
-  border-radius: 15px;
-  border: 1px solid rgba(183, 148, 246, 0.2);
-  margin-bottom: 2rem;
-}
-
-.roadmap-nodes {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding: 1rem 0;
-}
-
-.roadmap-node {
-  min-width: 120px;
-  text-align: center;
-  padding: 1rem;
-  background: rgba(20, 15, 30, 0.6);
-  border: 2px solid rgba(183, 148, 246, 0.2);
-  border-radius: 15px;
-  transition: all 0.3s ease;
-}
-
-.roadmap-node.completed {
-  border-color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-}
-
-.roadmap-node.current {
-  border-color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.2);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-  transform: scale(1.1);
-}
-
-.roadmap-node .node-icon {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 
-.roadmap-node .node-name {
+.roadmap-header p {
+  color: rgba(233, 179, 255, 0.7);
+  font-size: 1.1rem;
+}
+
+.roadmap-progress-bar {
+  background: rgba(30, 17, 71, 0.5);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(183, 148, 246, 0.2);
+  margin-bottom: 3rem;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
   color: #e9b3ff;
+  font-weight: 600;
+}
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+  background: rgba(20, 15, 30, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill-roadmap {
+  height: 100%;
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa, #10b981);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+.roadmap-timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.roadmap-item {
+  position: relative;
+  display: flex;
+  margin-bottom: 2rem;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.roadmap-item.completed,
+.roadmap-item.current,
+.roadmap-item.next {
+  opacity: 1;
+}
+
+.roadmap-item.locked {
+  opacity: 0.4;
+}
+
+.roadmap-connector {
+  position: absolute;
+  left: 24px;
+  top: 50px;
+  width: 3px;
+  height: calc(100% + 2rem);
+  background: rgba(183, 148, 246, 0.2);
+}
+
+.roadmap-item:last-child .roadmap-connector {
+  display: none;
+}
+
+.roadmap-item.completed .roadmap-connector {
+  background: linear-gradient(180deg, #10b981, rgba(16, 185, 129, 0.3));
+}
+
+.roadmap-node-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.roadmap-node-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(30, 17, 71, 0.8);
+  border: 3px solid rgba(183, 148, 246, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e9b3ff;
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+}
+
+.roadmap-item.completed .roadmap-node-circle {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  border-color: #10b981;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+.roadmap-item.current .roadmap-node-circle {
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.7);
+  animation: pulse 2s infinite;
+}
+
+.roadmap-item.next .roadmap-node-circle {
+  border-color: #fbbf24;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+.node-check {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.node-current {
+  color: white;
+  font-size: 2rem;
+  animation: pulse 2s infinite;
+}
+
+.node-lock {
+  font-size: 1.2rem;
+}
+
+.node-number {
+  color: rgba(233, 179, 255, 0.6);
+}
+
+.roadmap-node-content {
+  flex: 1;
+  background: rgba(30, 17, 71, 0.5);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 2px solid rgba(183, 148, 246, 0.2);
+  transition: all 0.3s ease;
+}
+
+.roadmap-item.current .roadmap-node-content {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.roadmap-item.completed .roadmap-node-content {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.roadmap-item.next .roadmap-node-content {
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.roadmap-node-content .node-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.roadmap-node-content h4 {
+  color: #e9b3ff;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.roadmap-node-content p {
+  color: rgba(233, 179, 255, 0.7);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.node-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.node-difficulty {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.node-difficulty.beginner {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.node-difficulty.intermediate {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.node-difficulty.advanced {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.node-xp {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(139, 92, 246, 0.2);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.node-status {
+  margin-top: 0.75rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
 }
 
-.next-topic-section {
+.current-badge {
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  color: white;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+.next-badge {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: white;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+}
+
+.completed-badge {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+}
+
+.roadmap-next-section {
+  margin-top: 3rem;
   text-align: center;
 }
 
-.next-topic-section h3 {
+.roadmap-next-section h3 {
   color: #e9b3ff;
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-.next-topic-card {
-  background: rgba(30, 17, 71, 0.5);
-  border: 1px solid rgba(183, 148, 246, 0.2);
-  border-radius: 15px;
+.next-topic-highlight {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(16, 185, 129, 0.1));
+  border: 2px solid rgba(183, 148, 246, 0.3);
+  border-radius: 20px;
   padding: 2rem;
-  max-width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 800px;
   margin: 0 auto;
 }
 
-.next-topic-card .topic-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+.next-topic-icon {
+  font-size: 4rem;
+  flex-shrink: 0;
 }
 
-.next-topic-card h4 {
+.next-topic-info {
+  flex: 1;
+  text-align: left;
+}
+
+.next-topic-info h4 {
   color: #e9b3ff;
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
-.next-topic-card p {
+.next-topic-info p {
   color: rgba(233, 179, 255, 0.7);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.next-topic-meta {
+  display: flex;
+  gap: 1rem;
+}
+
+.difficulty-tag {
+  padding: 0.4rem 1rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.difficulty-tag.beginner {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+}
+
+.difficulty-tag.intermediate {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: white;
+}
+
+.difficulty-tag.advanced {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  color: white;
+}
+
+.xp-tag {
+  padding: 0.4rem 1rem;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 768px) {
+  .roadmap-node-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .next-topic-highlight {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .next-topic-info {
+    text-align: center;
+  }
+
+  .next-topic-meta {
+    justify-content: center;
+  }
 }
 
 .topic-footer {

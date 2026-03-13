@@ -142,12 +142,34 @@ const TopicDetailPage = () => {
     return null;
   };
 
-  const handleNextTopic = () => {
-    const nextTopic = getNextTopic();
-    if (nextTopic) {
-      addXP(topic.xp);
-      navigate(`/topic/${domainName}/${nextTopic.id}`);
+  const handleNextSection = () => {
+    // Move to next tab within the same topic
+    const tabs = ['concepts', 'videos', 'games', 'roadmap'];
+    const currentIndex = tabs.indexOf(activeTab);
+    
+    if (currentIndex < tabs.length - 1) {
+      // Move to next tab
+      const nextTab = tabs[currentIndex + 1];
+      changeTab(nextTab);
+    } else {
+      // If on last tab, move to next topic
+      const nextTopic = getNextTopic();
+      if (nextTopic) {
+        addXP(topic.xp);
+        navigate(`/topic/${domainName}/${nextTopic.id}`);
+      }
     }
+  };
+
+  const getNextSectionName = () => {
+    const tabs = ['concepts', 'videos', 'games', 'roadmap'];
+    const tabNames = {
+      'concepts': 'Videos',
+      'videos': 'Games', 
+      'games': 'Roadmap',
+      'roadmap': getNextTopic() ? getNextTopic().name : 'Complete'
+    };
+    return tabNames[activeTab];
   };
 
   if (!domain || !topic) {
@@ -236,11 +258,9 @@ const TopicDetailPage = () => {
                       <button className="btn btn-secondary" onClick={handleSimplify}>
                         🤔 I still don't understand - Simplify more
                       </button>
-                      {nextTopic && (
-                        <button className="btn btn-success" onClick={handleNextTopic}>
-                          ✅ I understood - Next: {nextTopic.name}
-                        </button>
-                      )}
+                      <button className="btn btn-success" onClick={handleNextSection}>
+                        ✅ I understood - Next: {getNextSectionName()}
+                      </button>
                     </div>
                   </>
                 )}
@@ -280,13 +300,11 @@ const TopicDetailPage = () => {
                             </div>
                           ))}
                         </div>
-                        {nextTopic && (
-                          <div className="concept-actions" style={{ marginTop: '2rem' }}>
-                            <button className="btn btn-success" onClick={handleNextTopic}>
-                              ✅ I understood - Next: {nextTopic.name}
-                            </button>
-                          </div>
-                        )}
+                        <div className="concept-actions" style={{ marginTop: '2rem' }}>
+                          <button className="btn btn-success" onClick={handleNextSection}>
+                            ✅ I understood - Next: {getNextSectionName()}
+                          </button>
+                        </div>
                       </>
                     )}
                   </>
@@ -372,10 +390,10 @@ const TopicDetailPage = () => {
                       </div>
                     )}
                     
-                    {nextTopic && showResults && (
+                    {showResults && (
                       <div className="concept-actions" style={{ marginTop: '2rem' }}>
-                        <button className="btn btn-success" onClick={handleNextTopic}>
-                          ✅ I understood - Next: {nextTopic.name}
+                        <button className="btn btn-success" onClick={handleNextSection}>
+                          ✅ I understood - Next: {getNextSectionName()}
                         </button>
                       </div>
                     )}
@@ -386,29 +404,90 @@ const TopicDetailPage = () => {
 
             {activeTab === 'roadmap' && (
               <div className="roadmap-tab">
-                <h2>Learning Path</h2>
-                <div className="mini-roadmap">
-                  <div className="roadmap-nodes">
-                    {domain.topics.map((t, idx) => (
-                      <div 
-                        key={t.id} 
-                        className={`roadmap-node ${t.id === topicName ? 'current' : ''} ${idx < domain.topics.findIndex(x => x.id === topicName) ? 'completed' : ''}`}
-                      >
-                        <div className="node-icon">{t.icon}</div>
-                        <div className="node-name">{t.name}</div>
-                      </div>
-                    ))}
+                <div className="roadmap-header">
+                  <h2>📍 Your Learning Path</h2>
+                  <p>Track your progress through {domain.name}</p>
+                </div>
+
+                <div className="roadmap-progress-bar">
+                  <div className="progress-info">
+                    <span>Progress: {domain.topics.findIndex(t => t.id === topicName) + 1} / {domain.topics.length}</span>
+                    <span>{Math.round(((domain.topics.findIndex(t => t.id === topicName) + 1) / domain.topics.length) * 100)}% Complete</span>
+                  </div>
+                  <div className="progress-track">
+                    <div 
+                      className="progress-fill-roadmap" 
+                      style={{ width: `${((domain.topics.findIndex(t => t.id === topicName) + 1) / domain.topics.length) * 100}%` }}
+                    ></div>
                   </div>
                 </div>
+
+                <div className="roadmap-timeline">
+                  {domain.topics.map((t, idx) => {
+                    const currentIndex = domain.topics.findIndex(x => x.id === topicName);
+                    const isCompleted = idx < currentIndex;
+                    const isCurrent = idx === currentIndex;
+                    const isNext = idx === currentIndex + 1;
+                    const isLocked = idx > currentIndex + 1;
+                    
+                    return (
+                      <div 
+                        key={t.id} 
+                        className={`roadmap-item ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''} ${isNext ? 'next' : ''} ${isLocked ? 'locked' : ''}`}
+                      >
+                        <div className="roadmap-connector"></div>
+                        <div className="roadmap-node-wrapper">
+                          <div className="roadmap-node-circle">
+                            {isCompleted && <span className="node-check">✓</span>}
+                            {isCurrent && <span className="node-current">●</span>}
+                            {isLocked && <span className="node-lock">🔒</span>}
+                            {!isCompleted && !isCurrent && !isLocked && <span className="node-number">{idx + 1}</span>}
+                          </div>
+                          <div className="roadmap-node-content">
+                            <div className="node-icon">{t.icon}</div>
+                            <h4>{t.name}</h4>
+                            <p>{t.description}</p>
+                            <div className="node-meta">
+                              <span className={`node-difficulty ${t.difficulty.toLowerCase()}`}>{t.difficulty}</span>
+                              <span className="node-xp">+{t.xp} XP</span>
+                            </div>
+                            {isCurrent && (
+                              <div className="node-status">
+                                <span className="status-badge current-badge">📍 You are here</span>
+                              </div>
+                            )}
+                            {isNext && (
+                              <div className="node-status">
+                                <span className="status-badge next-badge">⭐ Up next</span>
+                              </div>
+                            )}
+                            {isCompleted && (
+                              <div className="node-status">
+                                <span className="status-badge completed-badge">✅ Completed</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
                 {nextTopic && (
-                  <div className="next-topic-section">
-                    <h3>Next Topic</h3>
-                    <div className="next-topic-card">
-                      <div className="topic-icon">{nextTopic.icon}</div>
-                      <h4>{nextTopic.name}</h4>
-                      <p>{nextTopic.description}</p>
-                      <button className="btn btn-primary" onClick={handleNextTopic}>
-                        Continue to {nextTopic.name} →
+                  <div className="roadmap-next-section">
+                    <h3>Continue Your Journey</h3>
+                    <div className="next-topic-highlight">
+                      <div className="next-topic-icon">{nextTopic.icon}</div>
+                      <div className="next-topic-info">
+                        <h4>{nextTopic.name}</h4>
+                        <p>{nextTopic.description}</p>
+                        <div className="next-topic-meta">
+                          <span className={`difficulty-tag ${nextTopic.difficulty.toLowerCase()}`}>{nextTopic.difficulty}</span>
+                          <span className="xp-tag">Earn {nextTopic.xp} XP</span>
+                        </div>
+                      </div>
+                      <button className="btn btn-success" onClick={handleNextSection}>
+                        Start Learning →
                       </button>
                     </div>
                   </div>
@@ -422,11 +501,9 @@ const TopicDetailPage = () => {
           <button className="btn btn-secondary" onClick={() => navigate(`/domain/${domainName}`)}>
             ← Back to {domain.name}
           </button>
-          {nextTopic && (
-            <button className="btn btn-primary" onClick={handleNextTopic}>
-              Next: {nextTopic.name} →
-            </button>
-          )}
+          <button className="btn btn-primary" onClick={handleNextSection}>
+            Next: {getNextSectionName()} →
+          </button>
         </div>
       </div>
     </div>
