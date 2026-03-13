@@ -255,6 +255,7 @@ Make it as simple as possible while still being accurate.`
 
 export const generateTopicQuiz = async (topicName, questionCount = 5) => {
   try {
+    const timestamp = Date.now();
     const response = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
@@ -266,32 +267,72 @@ export const generateTopicQuiz = async (topicName, questionCount = 5) => {
         messages: [
           {
             role: 'system',
-            content: 'You are a quiz creator. Generate engaging multiple-choice questions.'
+            content: 'You are a quiz creator. Generate engaging multiple-choice questions in valid JSON format only. Always create unique and different questions each time.'
           },
           {
             role: 'user',
-            content: `Create ${questionCount} multiple-choice questions about ${topicName}. 
-Format each question as:
-Q1: [Question]
-A) [Option]
-B) [Option]
-C) [Option]
-D) [Option]
-Correct Answer: [Letter]
-Explanation: [Why this is correct]
+            content: `Create ${questionCount} UNIQUE and DIFFERENT multiple-choice questions about ${topicName}. 
+Generate completely new questions that haven't been asked before. Use different angles, scenarios, and difficulty levels.
+Session ID: ${timestamp}
 
-Make questions progressively harder and include practical scenarios.`
+Return ONLY a valid JSON array with this exact structure (no markdown, no code blocks, just pure JSON):
+[
+  {
+    "question": "Question text here?",
+    "options": ["Option A", "Option B", "Option C", "Option D"],
+    "correctAnswer": 0,
+    "explanation": "Why this answer is correct"
+  }
+]
+
+Requirements:
+- Make each question unique and creative
+- Mix difficulty levels (easy, medium, hard)
+- Include practical scenarios and real-world examples
+- Vary question types (conceptual, practical, code-based if applicable)
+- The correctAnswer should be the index (0-3) of the correct option
+- Ensure all 4 options are plausible but only one is correct`
           }
         ],
-        temperature: 0.9,
-        max_tokens: 2000
+        temperature: 1.0,
+        max_tokens: 2500,
+        top_p: 0.95
       })
     });
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    const content = data.choices[0].message.content;
+    
+    // Try to parse JSON, removing any markdown code blocks if present
+    let cleanContent = content.trim();
+    if (cleanContent.startsWith('```')) {
+      cleanContent = cleanContent.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+    }
+    
+    try {
+      const quizData = JSON.parse(cleanContent);
+      return quizData;
+    } catch (parseError) {
+      console.error('Failed to parse quiz JSON:', parseError);
+      // Return fallback quiz
+      return [
+        {
+          question: `What is ${topicName} primarily used for?`,
+          options: ['Option A', 'Option B', 'Option C', 'Option D'],
+          correctAnswer: 0,
+          explanation: 'This is a sample question. Please try generating a new quiz.'
+        }
+      ];
+    }
   } catch (error) {
     console.error('Quiz generation error:', error);
-    return 'Unable to generate quiz at this time. Please try again.';
+    return [
+      {
+        question: 'Unable to generate quiz at this time.',
+        options: ['Try again', 'Refresh', 'Go back', 'Continue'],
+        correctAnswer: 0,
+        explanation: 'Please try generating a new quiz.'
+      }
+    ];
   }
 };
