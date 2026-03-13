@@ -1,0 +1,368 @@
+.topic-detail-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1147 0%, #6b2d9e 100%);
+  padding-left: 280px;
+  padding-top: 80px;
+}
+
+.topic-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.topic-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInUp 0.6s ease;
+}
+
+.topic-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 20px rgba(183, 148, 246, 0.5));
+}
+
+.topic-header h1 {
+  font-size: 3rem;
+  color: #e9b3ff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 30px rgba(183, 148, 246, 0.6);
+}
+
+.topic-description {
+  font-size: 1.2rem;
+  color: rgba(233, 179, 255, 0.8);
+  margin-bottom: 1rem;
+}
+
+.topic-badges {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.difficulty-badge {
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.difficulty-badge.beginner {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+}
+
+.difficulty-badge.intermediate {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: white;
+}
+
+.difficulty-badge.advanced {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  color: white;
+}
+
+.xp-badge {
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.tabs-container {
+  background: rgba(20, 15, 30, 0.8);
+  border: 1px solid rgba(183, 148, 246, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
+}
+
+.tabs-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid rgba(183, 148, 246, 0.2);
+  padding-bottom: 1rem;
+}
+
+.tab-btn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: rgba(233, 179, 255, 0.6);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  position: relative;
+}
+
+.tab-btn:hover {
+  color: #e9b3ff;
+  background: rgba(183, 148, 246, 0.1);
+}
+
+.tab-btn.active {
+  color: #e9b3ff;
+  background: rgba(183, 148, 246, 0.2);
+  box-shadow: 0 0 20px rgba(183, 148, 246, 0.3);
+}
+
+.tab-content {
+  min-height: 400px;
+}
+
+.concepts-tab, .videos-tab, .games-tab, .roadmap-tab {
+  animation: fadeIn 0.5s ease;
+}
+
+.explanation-content {
+  background: rgba(30, 17, 71, 0.5);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(183, 148, 246, 0.2);
+}
+
+.explanation-content pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #e9b3ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #e9b3ff;
+  font-size: 1.2rem;
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.video-card {
+  background: rgba(30, 17, 71, 0.5);
+  border: 1px solid rgba(183, 148, 246, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(183, 148, 246, 0.3);
+  border-color: rgba(183, 148, 246, 0.5);
+}
+
+.video-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.video-card h3 {
+  padding: 1rem;
+  color: #e9b3ff;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.video-card p {
+  padding: 0 1rem 1rem;
+  color: rgba(233, 179, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.video-player {
+  margin-bottom: 1.5rem;
+}
+
+.video-player iframe {
+  border-radius: 15px;
+  margin-bottom: 1rem;
+}
+
+.quiz-content {
+  background: rgba(30, 17, 71, 0.5);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(183, 148, 246, 0.2);
+}
+
+.quiz-content h2 {
+  color: #e9b3ff;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-content pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #e9b3ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.roadmap-tab h2 {
+  color: #e9b3ff;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.mini-roadmap {
+  background: rgba(30, 17, 71, 0.5);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(183, 148, 246, 0.2);
+  margin-bottom: 2rem;
+}
+
+.roadmap-nodes {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+.roadmap-node {
+  min-width: 120px;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(20, 15, 30, 0.6);
+  border: 2px solid rgba(183, 148, 246, 0.2);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.roadmap-node.completed {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.roadmap-node.current {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.2);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  transform: scale(1.1);
+}
+
+.roadmap-node .node-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.roadmap-node .node-name {
+  color: #e9b3ff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.next-topic-section {
+  text-align: center;
+}
+
+.next-topic-section h3 {
+  color: #e9b3ff;
+  margin-bottom: 1.5rem;
+}
+
+.next-topic-card {
+  background: rgba(30, 17, 71, 0.5);
+  border: 1px solid rgba(183, 148, 246, 0.2);
+  border-radius: 15px;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.next-topic-card .topic-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.next-topic-card h4 {
+  color: #e9b3ff;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.next-topic-card p {
+  color: rgba(233, 179, 255, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.topic-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.error-message {
+  text-align: center;
+  padding: 3rem;
+  color: #e9b3ff;
+}
+
+.error-message h2 {
+  margin-bottom: 1.5rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .topic-detail-page {
+    padding-left: 0;
+  }
+
+  .tabs-nav {
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .topic-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .roadmap-nodes {
+    flex-direction: column;
+  }
+}

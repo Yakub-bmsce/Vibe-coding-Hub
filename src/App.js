@@ -9,6 +9,8 @@ import VideoLearningPage from './pages/VideoLearningPage';
 import RoadmapPage from './pages/RoadmapPage';
 import GameLearningPage from './pages/GameLearningPage';
 import RevisionPage from './pages/RevisionPage';
+import DomainPage from './pages/DomainPage';
+import TopicDetailPage from './pages/TopicDetailPage';
 import ChatbotWidget from './components/ChatbotWidget';
 
 const ProtectedRoute = ({ children }) => {
@@ -24,6 +26,8 @@ function AppContent() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+        <Route path="/domain/:domainName" element={<ProtectedRoute><DomainPage /></ProtectedRoute>} />
+        <Route path="/topic/:domainName/:topicName" element={<ProtectedRoute><TopicDetailPage /></ProtectedRoute>} />
         <Route path="/concepts" element={<ProtectedRoute><ConceptLearningPage /></ProtectedRoute>} />
         <Route path="/videos" element={<ProtectedRoute><VideoLearningPage /></ProtectedRoute>} />
         <Route path="/roadmap" element={<ProtectedRoute><RoadmapPage /></ProtectedRoute>} />

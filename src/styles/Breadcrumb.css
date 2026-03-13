@@ -1,0 +1,32 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.breadcrumb-item {
+  transition: all 0.3s;
+}
+
+.breadcrumb-item.clickable {
+  cursor: pointer;
+  color: var(--purple-medium);
+}
+
+.breadcrumb-item.clickable:hover {
+  color: var(--purple-light);
+  text-decoration: underline;
+}
+
+.breadcrumb-item.current {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.breadcrumb-separator {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}

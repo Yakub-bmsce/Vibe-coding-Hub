@@ -166,3 +166,132 @@ const generateFallbackLesson = (topic) => {
     summary: `${topic} helps you write better code.`
   });
 };
+
+export const generateTopicExplanation = async (topicName, domainName) => {
+  try {
+    const response = await fetch(GROQ_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are an expert programming tutor. Provide clear, comprehensive explanations with examples.'
+          },
+          {
+            role: 'user',
+            content: `Create a detailed explanation of ${topicName} in the context of ${domainName}. Include:
+1) Simple introduction
+2) Step-by-step breakdown
+3) Real-world analogy
+4) Code examples (if applicable)
+5) Common mistakes to avoid
+6) Visual diagram description (describe what a diagram would show)
+7) Summary
+
+Make it beginner-friendly but comprehensive.`
+          }
+        ],
+        temperature: 0.9,
+        max_tokens: 2500
+      })
+    });
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  } catch (error) {
+    console.error('Topic explanation error:', error);
+    return `Error generating explanation for ${topicName}. Please try again.`;
+  }
+};
+
+export const generateSimplifiedExplanation = async (topicName, previousExplanation) => {
+  try {
+    const response = await fetch(GROQ_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a patient tutor who excels at breaking down complex topics into simple terms.'
+          },
+          {
+            role: 'user',
+            content: `The student didn't understand this explanation of ${topicName}:
+
+${previousExplanation}
+
+Please provide a much simpler explanation using:
+1) Everyday analogies
+2) Simple language (avoid jargon)
+3) Step-by-step breakdown
+4) Visual examples
+5) Relatable scenarios
+
+Make it as simple as possible while still being accurate.`
+          }
+        ],
+        temperature: 0.9,
+        max_tokens: 2000
+      })
+    });
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  } catch (error) {
+    console.error('Simplification error:', error);
+    return 'Unable to simplify at this time. Please try again.';
+  }
+};
+
+export const generateTopicQuiz = async (topicName, questionCount = 5) => {
+  try {
+    const response = await fetch(GROQ_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a quiz creator. Generate engaging multiple-choice questions.'
+          },
+          {
+            role: 'user',
+            content: `Create ${questionCount} multiple-choice questions about ${topicName}. 
+Format each question as:
+Q1: [Question]
+A) [Option]
+B) [Option]
+C) [Option]
+D) [Option]
+Correct Answer: [Letter]
+Explanation: [Why this is correct]
+
+Make questions progressively harder and include practical scenarios.`
+          }
+        ],
+        temperature: 0.9,
+        max_tokens: 2000
+      })
+    });
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  } catch (error) {
+    console.error('Quiz generation error:', error);
+    return 'Unable to generate quiz at this time. Please try again.';
+  }
+};

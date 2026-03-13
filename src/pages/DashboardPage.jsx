@@ -5,11 +5,14 @@ import Sidebar from '../components/Sidebar';
 import { getCurrentLevel, getProgressToNextLevel } from '../utils/xpSystem';
 import { updateStreak } from '../utils/progressTracker';
 import { generateClassRecovery } from '../api/groqAI';
+import { searchDomains } from '../data/domains';
 import '../styles/DashboardPage.css';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [level, setLevel] = useState(null);
   const [progress, setProgress] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -21,6 +24,23 @@ const DashboardPage = () => {
     setProgress(getProgressToNextLevel());
     setStreak(updateStreak());
   }, []);
+
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const results = searchDomains(searchQuery);
+      setSearchResults(results);
+      setShowDropdown(results.length > 0);
+    } else {
+      setSearchResults([]);
+      setShowDropdown(false);
+    }
+  }, [searchQuery]);
+
+  const handleDomainSelect = (domainId) => {
+    navigate(`/domain/${domainId}`);
+    setSearchQuery('');
+    setShowDropdown(false);
+  };
 
   const handleClassRecovery = async () => {
     if (!searchQuery.trim()) return;
@@ -108,15 +128,48 @@ const DashboardPage = () => {
           </section>
 
           <section className="search-section">
-            <h2>Class Recovery Mode</h2>
-            <p>Didn't understand something in class? Let AI help you!</p>
+            <h2>What do you want to learn today?</h2>
+            <p>Type the topic you didn't understand in class</p>
             <div className="search-box">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="e.g., Python, React, Data Structures, Machine Learning..."
+                onFocus={() => searchQuery && setShowDropdown(true)}
+              />
+              {showDropdown && searchResults.length > 0 && (
+                <div className="search-dropdown">
+                  {searchResults.map((domain) => (
+                    <div 
+                      key={domain.id}
+                      className="search-result-item"
+                      onClick={() => handleDomainSelect(domain.id)}
+                    >
+                      <span className="result-icon">{domain.icon}</span>
+                      <div className="result-info">
+                        <h4>{domain.name}</h4>
+                        <p>{domain.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+
+          <section className="search-section">
+            <h2>Or ask AI for help</h2>
+            <p>Describe what you didn't understand</p>
+            <div className="search-box">
+              <input
+                type="text"
                 placeholder="e.g., Today my teacher taught recursion but I didn't understand"
-                onKeyPress={(e) => e.key === 'Enter' && handleClassRecovery()}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleClassRecovery();
+                  }
+                }}
               />
               <button 
                 onClick={handleClassRecovery} 
