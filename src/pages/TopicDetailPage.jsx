@@ -162,7 +162,6 @@ const TopicDetailPage = () => {
   };
 
   const getNextSectionName = () => {
-    const tabs = ['concepts', 'videos', 'games', 'roadmap'];
     const tabNames = {
       'concepts': 'Videos',
       'videos': 'Games', 
