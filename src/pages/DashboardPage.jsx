@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { getCurrentLevel, getProgressToNextLevel } from '../utils/xpSystem';
 import { updateStreak } from '../utils/progressTracker';
 import { generateClassRecovery } from '../api/groqAI';
-import { searchDomains } from '../data/domains';
+import { searchDomains, getAllDomains } from '../data/domains';
 import '../styles/DashboardPage.css';
 
 const DashboardPage = () => {
@@ -18,6 +18,9 @@ const DashboardPage = () => {
   const [streak, setStreak] = useState(0);
   const [recoveryResult, setRecoveryResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showRealWorld, setShowRealWorld] = useState(false);
+  const [selectedDomain, setSelectedDomain] = useState('programming-languages');
+  const allDomains = getAllDomains();
 
   useEffect(() => {
     setLevel(getCurrentLevel());
@@ -184,6 +187,114 @@ const DashboardPage = () => {
             {recoveryResult && (
               <div className="recovery-result card">
                 <pre>{recoveryResult}</pre>
+              </div>
+            )}
+          </section>
+
+          <section className="real-world-section">
+            <div 
+              className="real-world-toggle-card card"
+              onClick={() => setShowRealWorld(!showRealWorld)}
+            >
+              <div className="toggle-header">
+                <div className="toggle-icon">🌍</div>
+                <div className="toggle-content">
+                  <h2>Real World Applications</h2>
+                  <p>See where each domain is actually used in the real world</p>
+                </div>
+                <button className="toggle-btn">
+                  {showRealWorld ? '▼ Close' : 'Explore Now →'}
+                </button>
+              </div>
+            </div>
+
+            {showRealWorld && (
+              <div className="real-world-content">
+                <div className="domain-tabs">
+                  {allDomains.map((domain) => (
+                    <button
+                      key={domain.id}
+                      className={`domain-tab ${selectedDomain === domain.id ? 'active' : ''}`}
+                      onClick={() => setSelectedDomain(domain.id)}
+                    >
+                      <span className="tab-icon">{domain.icon}</span>
+                      <span className="tab-name">{domain.name}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {allDomains.find(d => d.id === selectedDomain)?.realWorld && (
+                  <div className="real-world-details">
+                    <div className="real-world-grid">
+                      <div className="rw-card">
+                        <h3>🏢 Industries</h3>
+                        <div className="rw-list">
+                          {allDomains.find(d => d.id === selectedDomain).realWorld.industries.map((industry, idx) => (
+                            <span key={idx} className="rw-tag">{industry}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="rw-card">
+                        <h3>💼 Job Roles & Salary</h3>
+                        <div className="job-list">
+                          {allDomains.find(d => d.id === selectedDomain).realWorld.jobRoles.map((job, idx) => (
+                            <div key={idx} className="job-item">
+                              <span className="job-title">{job.title}</span>
+                              <span className="job-salary">{job.salary}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="rw-card">
+                        <h3>🛠️ Tools Used in Industry</h3>
+                        <div className="rw-list">
+                          {allDomains.find(d => d.id === selectedDomain).realWorld.tools.map((tool, idx) => (
+                            <span key={idx} className="rw-tag tool-tag">{tool}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="rw-card">
+                        <h3>🏆 Top Companies Hiring</h3>
+                        <div className="rw-list">
+                          {allDomains.find(d => d.id === selectedDomain).realWorld.companies.map((company, idx) => (
+                            <span key={idx} className="rw-tag company-tag">{company}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="rw-card">
+                        <h3>🔨 Real Projects You Can Build</h3>
+                        <div className="project-list">
+                          {allDomains.find(d => d.id === selectedDomain).realWorld.projects.map((project, idx) => (
+                            <div key={idx} className="project-item">
+                              <span className="project-number">{idx + 1}</span>
+                              <span className="project-name">{project}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rw-footer">
+                      <div className="demand-indicator">
+                        <span className={`demand-badge ${allDomains.find(d => d.id === selectedDomain).realWorld.demand.toLowerCase()}`}>
+                          {allDomains.find(d => d.id === selectedDomain).realWorld.demand === 'High' && '📈 High Demand'}
+                          {allDomains.find(d => d.id === selectedDomain).realWorld.demand === 'Stable' && '✅ Stable'}
+                          {allDomains.find(d => d.id === selectedDomain).realWorld.demand === 'Niche' && '⚠️ Niche'}
+                        </span>
+                      </div>
+                      <button 
+                        className="btn btn-success"
+                        onClick={() => navigate(`/domain/${selectedDomain}`)}
+                      >
+                        Start Learning This Domain →
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </section>
