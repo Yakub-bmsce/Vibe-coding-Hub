@@ -156,10 +156,11 @@ const DashboardPage = () => {
                 </div>
               )}
             </div>
-          </section>
 
-          <section className="search-section">
-            <h2>Or ask AI for help</h2>
+            <div className="ai-help-divider">
+              <span>Or ask AI for help</span>
+            </div>
+
             <p>Describe what you didn't understand</p>
             <div className="search-box">
               <input
