@@ -404,77 +404,38 @@ const TopicDetailPage = () => {
             {activeTab === 'roadmap' && (
               <div className="roadmap-tab">
                 <div className="roadmap-header">
-                  <h2>📍 Your Learning Path</h2>
-                  <p>Track your progress through {domain.name}</p>
+                  <h2>📍 {topic.name} Learning Roadmap</h2>
+                  <p>Step-by-step path to master {topic.name}</p>
                 </div>
 
-                <div className="roadmap-progress-bar">
-                  <div className="progress-info">
-                    <span>Progress: {domain.topics.findIndex(t => t.id === topicName) + 1} / {domain.topics.length}</span>
-                    <span>{Math.round(((domain.topics.findIndex(t => t.id === topicName) + 1) / domain.topics.length) * 100)}% Complete</span>
-                  </div>
-                  <div className="progress-track">
-                    <div 
-                      className="progress-fill-roadmap" 
-                      style={{ width: `${((domain.topics.findIndex(t => t.id === topicName) + 1) / domain.topics.length) * 100}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                <div className="roadmap-timeline">
-                  {domain.topics.map((t, idx) => {
-                    const currentIndex = domain.topics.findIndex(x => x.id === topicName);
-                    const isCompleted = idx < currentIndex;
-                    const isCurrent = idx === currentIndex;
-                    const isNext = idx === currentIndex + 1;
-                    const isLocked = idx > currentIndex + 1;
-                    
-                    return (
-                      <div 
-                        key={t.id} 
-                        className={`roadmap-item ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''} ${isNext ? 'next' : ''} ${isLocked ? 'locked' : ''}`}
-                      >
+                {topic.roadmap && topic.roadmap.length > 0 ? (
+                  <div className="roadmap-timeline">
+                    {topic.roadmap.map((step, idx) => (
+                      <div key={idx} className={`roadmap-item ${idx === 0 ? 'current' : ''}`}>
                         <div className="roadmap-connector"></div>
                         <div className="roadmap-node-wrapper">
                           <div className="roadmap-node-circle">
-                            {isCompleted && <span className="node-check">✓</span>}
-                            {isCurrent && <span className="node-current">●</span>}
-                            {isLocked && <span className="node-lock">🔒</span>}
-                            {!isCompleted && !isCurrent && !isLocked && <span className="node-number">{idx + 1}</span>}
+                            <span className="node-number">{idx + 1}</span>
                           </div>
                           <div className="roadmap-node-content">
-                            <div className="node-icon">{t.icon}</div>
-                            <h4>{t.name}</h4>
-                            <p>{t.description}</p>
+                            <h4>{step}</h4>
                             <div className="node-meta">
-                              <span className={`node-difficulty ${t.difficulty.toLowerCase()}`}>{t.difficulty}</span>
-                              <span className="node-xp">+{t.xp} XP</span>
+                              <span className="node-xp">+{Math.round(topic.xp / topic.roadmap.length)} XP</span>
                             </div>
-                            {isCurrent && (
-                              <div className="node-status">
-                                <span className="status-badge current-badge">📍 You are here</span>
-                              </div>
-                            )}
-                            {isNext && (
-                              <div className="node-status">
-                                <span className="status-badge next-badge">⭐ Up next</span>
-                              </div>
-                            )}
-                            {isCompleted && (
-                              <div className="node-status">
-                                <span className="status-badge completed-badge">✅ Completed</span>
-                              </div>
-                            )}
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{ color: 'rgba(233,179,255,0.7)', textAlign: 'center', padding: '2rem' }}>
+                    Roadmap coming soon for this topic.
+                  </p>
+                )}
 
                 {nextTopic && (
                   <div className="roadmap-next-section">
-                    <h3>Continue Your Journey</h3>
+                    <h3>After mastering {topic.name}, explore next:</h3>
                     <div className="next-topic-highlight">
                       <div className="next-topic-icon">{nextTopic.icon}</div>
                       <div className="next-topic-info">
@@ -486,7 +447,7 @@ const TopicDetailPage = () => {
                         </div>
                       </div>
                       <button className="btn btn-success" onClick={handleNextSection}>
-                        Start Learning →
+                        Start {nextTopic.name} →
                       </button>
                     </div>
                   </div>
