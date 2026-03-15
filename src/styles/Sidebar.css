@@ -26,8 +26,8 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-  color: white;
+  background: #8b5cf6;          /* fixed solid color — never changes */
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   display: flex;
@@ -35,17 +35,12 @@
   justify-content: center;
   margin: 0 auto 12px;
   flex-shrink: 0;
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
-  opacity: 1;
-  transition: opacity 0.2s ease;
   pointer-events: none;
+  /* no transition, no hover, no filter — completely static */
 }
 
 .sidebar.open .sidebar-avatar-mini {
-  opacity: 0;
-  height: 0;
-  margin: 0;
-  overflow: hidden;
+  display: none;
 }
 
 /* ── Profile card (expanded only) ────────────────────────────────────────── */
@@ -67,15 +62,14 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8b5cf6, #ec4899);
-  color: white;
+  background: #8b5cf6;          /* same fixed color as mini avatar */
+  color: #ffffff;
   font-weight: 700;
   font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.5);
 }
 
 .profile-info {
