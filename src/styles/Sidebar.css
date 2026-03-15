@@ -9,7 +9,7 @@
   border-right: 1px solid rgba(139, 92, 246, 0.2);
   padding: 16px 0 0;
   overflow: hidden;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 50;
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(16px);
@@ -36,11 +36,16 @@
   margin: 0 auto 12px;
   flex-shrink: 0;
   box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
-  transition: opacity 0.2s;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
 }
 
 .sidebar.open .sidebar-avatar-mini {
-  display: none;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
 /* ── Profile card (expanded only) ────────────────────────────────────────── */
@@ -204,11 +209,11 @@
 .sidebar-item {
   padding: 11px 20px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s, border-left-color 0.2s;
   display: flex;
   align-items: center;
   gap: 12px;
-  color: rgba(233, 179, 255, 0.55);
+  color: rgba(233, 179, 255, 0.7);
   font-weight: 500;
   font-size: 0.9rem;
   border-left: 3px solid transparent;
@@ -220,7 +225,7 @@
 
 .sidebar-item:hover {
   background: rgba(139, 92, 246, 0.12);
-  color: #e9b3ff;
+  color: rgba(233, 179, 255, 0.7);
   border-left-color: rgba(139, 92, 246, 0.5);
 }
 
@@ -236,6 +241,9 @@
   width: 22px;
   text-align: center;
   flex-shrink: 0;
+  /* emoji icons must not shift color on hover */
+  filter: none !important;
+  transition: none;
 }
 
 .sidebar-label {
