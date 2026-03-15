@@ -8,43 +8,34 @@ const Sidebar = () => {
   const location = useLocation();
 
   const menuItems = [
-    { path: '/dashboard', icon: '🏠', label: 'Dashboard' },
-    { path: '/concepts', icon: '📚', label: 'Learn by Concepts' },
-    { path: '/videos', icon: '🎥', label: 'Video Tutorials' },
-    { path: '/roadmap', icon: '🗺️', label: 'Learning Roadmap' },
-    { path: '/games', icon: '🎮', label: 'Game Learning' },
-    { path: '/revision', icon: '📝', label: 'Revision' }
+    { path: '/dashboard',  icon: '🏠', label: 'Dashboard' },
+    { path: '/concepts',   icon: '📚', label: 'Learn by Concepts' },
+    { path: '/videos',     icon: '🎥', label: 'Video Tutorials' },
+    { path: '/roadmap',    icon: '🗺️', label: 'Learning Roadmap' },
+    { path: '/games',      icon: '🎮', label: 'Game Learning' },
+    { path: '/revision',   icon: '📝', label: 'Revision' }
   ];
 
-  const handleNavigate = (path) => {
-    navigate(path);
-    setIsOpen(false);
-  };
-
   return (
-    <>
-      <button 
-        className="sidebar-toggle" 
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        ☰
-      </button>
-
-      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-        <ul className="sidebar-menu">
-          {menuItems.map((item) => (
-            <li
-              key={item.path}
-              className={`sidebar-item ${location.pathname === item.path ? 'active' : ''}`}
-              onClick={() => handleNavigate(item.path)}
-            >
-              <span className="sidebar-icon">{item.icon}</span>
-              <span>{item.label}</span>
-            </li>
-          ))}
-        </ul>
-      </aside>
-    </>
+    <aside
+      className={`sidebar ${isOpen ? 'open' : ''}`}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <div className="sidebar-hint">☰</div>
+      <ul className="sidebar-menu">
+        {menuItems.map((item) => (
+          <li
+            key={item.path}
+            className={`sidebar-item ${location.pathname === item.path ? 'active' : ''}`}
+            onClick={() => navigate(item.path)}
+          >
+            <span className="sidebar-icon">{item.icon}</span>
+            <span className="sidebar-label">{item.label}</span>
+          </li>
+        ))}
+      </ul>
+    </aside>
   );
 };
 

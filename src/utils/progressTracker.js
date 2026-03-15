@@ -15,11 +15,31 @@ export const updateStreak = () => {
   if (lastVisit === yesterdayStr) {
     newStreak = currentStreak + 1;
   } else {
+    // Missed a day — reset streak
     newStreak = 1;
   }
 
   localStorage.setItem('streak', newStreak.toString());
   localStorage.setItem('lastVisit', today);
+
+  // Track streak history (array of ISO date strings)
+  const history = JSON.parse(localStorage.getItem('streakHistory') || '[]');
+  const todayISO = new Date().toISOString().split('T')[0];
+  if (!history.includes(todayISO)) {
+    history.push(todayISO);
+    // Keep only last 90 days
+    const trimmed = history.slice(-90);
+    localStorage.setItem('streakHistory', JSON.stringify(trimmed));
+  }
+
+  // Award streak XP (inline to avoid circular import)
+  const xpPerDay = 15;
+  const currentXP = parseInt(localStorage.getItem('userXP') || '0');
+  let bonus = 0;
+  if (newStreak === 7)  bonus = 50;
+  if (newStreak === 30) bonus = 200;
+  localStorage.setItem('userXP', (currentXP + xpPerDay + bonus).toString());
+
   return newStreak;
 };
 
@@ -27,12 +47,26 @@ export const getStreak = () => {
   return parseInt(localStorage.getItem('streak') || '0');
 };
 
+export const getStreakHistory = () => {
+  return JSON.parse(localStorage.getItem('streakHistory') || '[]');
+};
+
+// Returns last 30 days with active/inactive status
+export const getLast30Days = () => {
+  const history = getStreakHistory();
+  const days = [];
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const iso = d.toISOString().split('T')[0];
+    days.push({ date: iso, active: history.includes(iso), dayNum: 30 - i });
+  }
+  return days;
+};
+
 export const trackLessonProgress = (lessonId, completed = false) => {
   const progress = JSON.parse(localStorage.getItem('lessonProgress') || '{}');
-  progress[lessonId] = {
-    completed,
-    lastAccessed: new Date().toISOString()
-  };
+  progress[lessonId] = { completed, lastAccessed: new Date().toISOString() };
   localStorage.setItem('lessonProgress', JSON.stringify(progress));
 };
 
