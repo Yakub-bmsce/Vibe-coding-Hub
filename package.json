@@ -2,7 +2,7 @@
   "name": "vibe-learning-hub",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://vibe-coding-hub.vercel.app",
+  "homepage": "https://vibe-coding-hub-lilac.vercel.app",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
