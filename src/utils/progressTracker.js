@@ -15,22 +15,17 @@ export const updateStreak = () => {
   if (lastVisit === yesterdayStr) {
     newStreak = currentStreak + 1;
   } else {
-    // Missed a day — reset streak
+    // Missed a day — reset streak, start new session
     newStreak = 1;
+    // Archive current session and start fresh
+    _startNewStreakSession();
   }
 
   localStorage.setItem('streak', newStreak.toString());
   localStorage.setItem('lastVisit', today);
 
-  // Track streak history (array of ISO date strings)
-  const history = JSON.parse(localStorage.getItem('streakHistory') || '[]');
-  const todayISO = new Date().toISOString().split('T')[0];
-  if (!history.includes(todayISO)) {
-    history.push(todayISO);
-    // Keep only last 90 days
-    const trimmed = history.slice(-90);
-    localStorage.setItem('streakHistory', JSON.stringify(trimmed));
-  }
+  // Append today to the current session
+  _appendToCurrentSession(today);
 
   // Award streak XP (inline to avoid circular import)
   const xpPerDay = 15;
@@ -43,23 +38,46 @@ export const updateStreak = () => {
   return newStreak;
 };
 
+// Start a new streak session (called on reset)
+const _startNewStreakSession = () => {
+  const sessions = JSON.parse(localStorage.getItem('streakSessions') || '[]');
+  sessions.push([]); // new empty session
+  localStorage.setItem('streakSessions', JSON.stringify(sessions));
+};
+
+// Append a date string to the latest session
+const _appendToCurrentSession = (dateStr) => {
+  const sessions = JSON.parse(localStorage.getItem('streakSessions') || '[]');
+  if (sessions.length === 0) sessions.push([]);
+  const current = sessions[sessions.length - 1];
+  if (!current.includes(dateStr)) {
+    current.push(dateStr);
+    sessions[sessions.length - 1] = current;
+    localStorage.setItem('streakSessions', JSON.stringify(sessions));
+  }
+};
+
 export const getStreak = () => {
   return parseInt(localStorage.getItem('streak') || '0');
 };
 
-export const getStreakHistory = () => {
-  return JSON.parse(localStorage.getItem('streakHistory') || '[]');
-};
+// Returns the current streak session as array of day objects:
+// { dayNum: 1, date: 'Mon Jan 01 2025', active: true/false }
+// Always shows up to 30 slots. Active days = days learned. Inactive = gaps (missed).
+export const getStreakDays = () => {
+  const sessions = JSON.parse(localStorage.getItem('streakSessions') || '[]');
+  const currentSession = sessions.length > 0 ? sessions[sessions.length - 1] : [];
+  const streak = parseInt(localStorage.getItem('streak') || '0');
 
-// Returns last 30 days with active/inactive status
-export const getLast30Days = () => {
-  const history = getStreakHistory();
+  // Build 30 slots: first `streak` are active (learned days), rest are future/empty
   const days = [];
-  for (let i = 29; i >= 0; i--) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    const iso = d.toISOString().split('T')[0];
-    days.push({ date: iso, active: history.includes(iso), dayNum: 30 - i });
+  for (let i = 1; i <= 30; i++) {
+    days.push({
+      dayNum: i,
+      active: i <= streak,
+      isToday: i === streak,
+      date: currentSession[i - 1] || null
+    });
   }
   return days;
 };

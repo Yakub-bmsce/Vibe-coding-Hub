@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import { getCurrentLevel, getProgressToNextLevel, getLearnerCategory, RANKS, getUnlockedRanks } from '../utils/xpSystem';
-import { updateStreak, getLast30Days } from '../utils/progressTracker';
+import { updateStreak, getStreakDays } from '../utils/progressTracker';
 import { generateClassRecovery } from '../api/groqAI';
 import { getAllDomains, searchDomains, findTopicMatch } from '../data/domains';
 import '../styles/DashboardPage.css';
@@ -55,9 +55,9 @@ const LearnerModal = ({ onClose }) => {
 };
 
 const StreakModal = ({ streak, onClose }) => {
-  const days = getLast30Days();
-  const todayISO = new Date().toISOString().split('T')[0];
+  const days = getStreakDays();
   const activeDays = days.filter(d => d.active).length;
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-box" onClick={e => e.stopPropagation()}>
@@ -67,23 +67,27 @@ const StreakModal = ({ streak, onClose }) => {
         </div>
         <div className="streak-summary">
           <div className="streak-stat"><div className="ss-val">{streak}</div><div className="ss-lbl">Current Streak</div></div>
-          <div className="streak-stat"><div className="ss-val">{activeDays}</div><div className="ss-lbl">Active (30d)</div></div>
-          <div className="streak-stat"><div className="ss-val">{30 - activeDays}</div><div className="ss-lbl">Missed</div></div>
+          <div className="streak-stat"><div className="ss-val">{activeDays}</div><div className="ss-lbl">Days Done</div></div>
+          <div className="streak-stat"><div className="ss-val">{30 - activeDays}</div><div className="ss-lbl">Remaining</div></div>
         </div>
         <div className="streak-calendar">
           {days.map((d) => (
-            <div key={d.date} className={`cal-day ${d.active ? 'active' : 'inactive'} ${d.date === todayISO ? 'today' : ''}`} title={d.date}>
+            <div
+              key={d.dayNum}
+              className={`cal-day ${d.active ? 'active' : 'inactive'} ${d.isToday ? 'today' : ''}`}
+              title={d.date || `Day ${d.dayNum}`}
+            >
               <span className="day-num">{d.dayNum}</span>
               <span className="day-dot">{d.active ? '✓' : '·'}</span>
             </div>
           ))}
         </div>
         <div className="streak-legend">
-          <span><span className="legend-dot active"></span>Active</span>
-          <span><span className="legend-dot inactive"></span>Missed</span>
+          <span><span className="legend-dot active"></span>Completed</span>
+          <span><span className="legend-dot inactive"></span>Not yet</span>
         </div>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', marginTop: '1rem' }}>
-          ⚠️ Missing even one day resets your streak to Day 1.
+        <p style={{ color: 'rgba(233,179,255,0.6)', fontSize: '0.82rem', marginTop: '1rem' }}>
+          ⚠️ Missing even one day resets your streak back to Day 1.
         </p>
       </div>
     </div>
