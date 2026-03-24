@@ -6,7 +6,7 @@ import '../styles/Navbar.css';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
-  const { isDark, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -22,10 +22,10 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-actions">
-          <button onClick={toggleTheme} className="btn-icon" title="Toggle Theme">
-            {isDark ? '☀️' : '🌙'}
+          <button onClick={toggleTheme} className="theme-toggle" title="Toggle theme">
+            {theme === 'dark' ? '☀️' : '🌙'}
           </button>
-          
+
           <div className="user-info">
             <span>{user?.name || 'User'}</span>
           </div>

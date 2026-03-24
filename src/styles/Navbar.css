@@ -1,60 +1,42 @@
 .navbar {
-  background: rgba(45, 27, 78, 0.95);
-  border-bottom: 2px solid var(--border);
-  padding: 16px 0;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5), 0 0 20px var(--neon-glow);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar-content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .navbar-brand h2 {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
 }
 
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
-}
-
-.btn-icon {
-  background: var(--bg-hover);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-  color: var(--text-primary);
-}
-
-.btn-icon:hover {
-  transform: scale(1.1);
-  background: var(--primary);
-  box-shadow: 0 4px 15px var(--neon-glow), 0 0 20px var(--neon-glow);
+  gap: 12px;
 }
 
 .user-info {
-  padding: 8px 16px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  padding: 7px 16px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  color: white;
+  color: var(--accent-light);
   font-weight: 600;
-  box-shadow: 0 0 15px var(--neon-glow);
+  font-size: 14px;
+  text-transform: capitalize;
 }

@@ -143,16 +143,30 @@ export const generateClassRecovery = async (topic) => {
         messages: [
           {
             role: 'user',
-            content: `I didn't understand ${topic} in class. Provide: 1) Simple explanation 2) Real-world analogy 3) Practice question. Format as JSON.`
+            content: `A student said: "${topic}". Give me:
+1. Simple explanation (2-3 lines)
+2. Real world analogy
+3. One practice question
+
+Return ONLY valid JSON, no markdown:
+{"explanation":"...","analogy":"...","practiceQuestion":"..."}`
           }
-        ]
+        ],
+        temperature: 0.9,
+        max_tokens: 600
       })
     });
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    const text = data.choices[0].message.content;
+    const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    try {
+      return JSON.parse(clean);
+    } catch {
+      return { explanation: text, analogy: '', practiceQuestion: '' };
+    }
   } catch (error) {
-    return null;
+    return { explanation: 'Could not load. Check your Groq API key in .env', analogy: '', practiceQuestion: '' };
   }
 };
 

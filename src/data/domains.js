@@ -329,8 +329,20 @@ export const getTopicByIds = (domainId, topicId) => {
 export const searchDomains = (query) => {
   if (!query) return [];
   const lowerQuery = query.toLowerCase();
-  return getAllDomains().filter(domain => 
+  return getAllDomains().filter(domain =>
     domain.name.toLowerCase().includes(lowerQuery) ||
-    domain.description.toLowerCase().includes(lowerQuery)
+    domain.description.toLowerCase().includes(lowerQuery) ||
+    domain.topics.some(t => t.name.toLowerCase().includes(lowerQuery))
   );
+};
+
+// Find which domain+topic matches a query string exactly
+export const findTopicMatch = (query) => {
+  if (!query) return null;
+  const lower = query.toLowerCase();
+  for (const domain of getAllDomains()) {
+    const topic = domain.topics.find(t => t.name.toLowerCase().includes(lower));
+    if (topic) return { domain, topic };
+  }
+  return null;
 };
