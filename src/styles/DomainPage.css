@@ -4,10 +4,10 @@
 }
 
 .domain-content {
-  margin-left: 280px;
+  margin-left: 64px;
   padding: 40px 20px;
   max-width: 1400px;
-  width: calc(100% - 280px);
+  width: calc(100vw - 64px);
   box-sizing: border-box;
 }
 
@@ -54,8 +54,9 @@
 }
 
 .topics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 24px;
   margin-bottom: 48px;
   width: 100%;

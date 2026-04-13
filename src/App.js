@@ -14,8 +14,7 @@ import TopicDetailPage from './pages/TopicDetailPage';
 import ChatbotWidget from './components/ChatbotWidget';
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return children;
 };
 
 function AppContent() {

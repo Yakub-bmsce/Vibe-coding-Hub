@@ -5,6 +5,9 @@
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
+  flex: 1 1 260px;
+  max-width: 320px;
+  min-width: 240px;
 }
 
 .topic-card::before {
