@@ -6,7 +6,7 @@
 
 **👉 [https://vibe-coding-hub-lilac.vercel.app](https://vibe-coding-hub-lilac.vercel.app)**
 
-> Click the link above to open the app. Use the **Demo** button on the login page to try it instantly — no signup needed!
+> Click the link above to open the app. Use the **Demo** button on the login page to try it instantly — no signup needed!!!
 
 ---
 
