@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Breadcrumb from '../components/Breadcrumb';
 import { getDomainById, getTopicByIds } from '../data/domains';
-import { generateTopicExplanation, generateSimplifiedExplanation, generateTopicQuiz, generateLesson } from '../api/groqAI';
+import { generateTopicExplanation, generateSimplifiedExplanation, generateLesson } from '../api/groqAI';
 import { searchVideos } from '../api/growAPI';
 import { addXP, XP_REWARDS } from '../utils/xpSystem';
 import '../styles/TopicDetailPage.css';
