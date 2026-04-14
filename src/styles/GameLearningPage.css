@@ -4,7 +4,7 @@
 }
 
 .game-content {
-  margin-left: 64px;
+  margin-left: 60px;
   padding: 40px 20px;
 }
 
@@ -265,3 +265,10 @@
   }
 }
 
+
+@media (max-width: 768px) {
+  .game-content {
+    margin-left: 0;
+    padding-bottom: 72px;
+  }
+}

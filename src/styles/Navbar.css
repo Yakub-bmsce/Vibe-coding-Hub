@@ -1,42 +1,59 @@
 .navbar {
   background: var(--bg-card);
-  border-bottom: 2px solid var(--border);
-  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-.navbar-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+  height: 56px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
+.navbar-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
 .navbar-brand h2 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .user-info {
-  padding: 8px 16px;
+  padding: 5px 12px;
   background: var(--bg-hover);
   border: 1px solid var(--border);
   border-radius: 20px;
   color: var(--text-primary);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   text-transform: capitalize;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* hide user-info text on very small screens */
+@media (max-width: 400px) {
+  .user-info { display: none; }
+  .navbar-brand h2 { font-size: 18px; }
 }

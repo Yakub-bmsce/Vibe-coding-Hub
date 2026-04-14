@@ -4,7 +4,7 @@
 }
 
 .domain-content {
-  margin-left: 64px;
+  margin-left: 60px;
   padding: 40px 20px;
   max-width: calc(100% - 64px);
   box-sizing: border-box;
@@ -98,3 +98,10 @@
   }
 }
 
+
+@media (max-width: 768px) {
+  .domain-content {
+    margin-left: 0;
+    padding-bottom: 72px;
+  }
+}

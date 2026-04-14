@@ -1,8 +1,15 @@
 .topic-detail-page {
   min-height: 100vh;
   background: var(--bg-page);
-  padding-left: 64px;
-  padding-top: 80px;
+  padding-left: 60px;
+  padding-top: 56px;
+}
+
+@media (max-width: 768px) {
+  .topic-detail-page {
+    padding-left: 0;
+    padding-bottom: 72px;
+  }
 }
 
 .topic-content {
