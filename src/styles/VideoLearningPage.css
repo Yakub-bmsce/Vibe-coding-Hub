@@ -1,6 +1,6 @@
 .video-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #1e1147 0%, #2d1b4e 30%, #4a2870 60%, #6b2d9e 100%);
+  background: var(--bg-page);
 }
 
 .video-content {
@@ -84,3 +84,4 @@
     height: 250px;
   }
 }
+

@@ -1,6 +1,6 @@
 .topic-detail-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e1147 0%, #6b2d9e 100%);
+  background: var(--bg-page);
   padding-left: 64px;
   padding-top: 80px;
 }
@@ -984,3 +984,4 @@
   font-size: 0.95rem;
   line-height: 1.7;
 }
+

@@ -1,6 +1,6 @@
 .roadmap-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #1e1147 0%, #2d1b4e 30%, #4a2870 60%, #6b2d9e 100%);
+  background: var(--bg-page);
 }
 
 .roadmap-content {
@@ -130,7 +130,7 @@
 .completion-modal h2 {
   font-size: 32px;
   margin: 0 0 16px 0;
-  background: linear-gradient(180deg, #1e1147 0%, #2d1b4e 30%, #4a2870 60%, #6b2d9e 100%);
+  background: var(--bg-page);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -162,3 +162,4 @@
   margin-top: 16px;
   font-style: italic;
 }
+
