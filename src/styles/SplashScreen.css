@@ -108,7 +108,7 @@
   height: 100%;
   background: linear-gradient(90deg, #b794f6, #ff69b4);
   border-radius: 10px;
-  animation: splashLoad 1.8s ease forwards 0.4s;
+  animation: splashLoad 4.2s ease forwards 0.4s;
   width: 0;
 }
 

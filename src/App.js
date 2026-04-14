@@ -56,7 +56,9 @@ function App() {
       <AuthProvider>
         <ThemeProvider>
           {showSplash && <SplashScreen onDone={handleSplashDone} />}
-          <AppContent />
+          <div style={{ visibility: showSplash ? 'hidden' : 'visible' }}>
+            <AppContent />
+          </div>
         </ThemeProvider>
       </AuthProvider>
     </Router>
