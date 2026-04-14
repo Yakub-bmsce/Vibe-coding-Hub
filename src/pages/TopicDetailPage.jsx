@@ -34,7 +34,6 @@ const TopicDetailPage = () => {
   const [currentRoadmapStep, setCurrentRoadmapStep] = useState(0);
   const [subTopicExplanation, setSubTopicExplanation] = useState('');
   const [isLoadingSubTopic, setIsLoadingSubTopic] = useState(false);
-  const [subTopicDone, setSubTopicDone] = useState(false);
 
   useEffect(() => {
     if (activeTab === 'concepts' && !explanation) {
@@ -195,19 +194,15 @@ const TopicDetailPage = () => {
   const handleOpenSubTopic = (stepIndex) => {
     setCurrentRoadmapStep(stepIndex);
     setShowNextSubTopic(true);
-    setSubTopicDone(false);
     loadSubTopicExplanation(topic.roadmap[stepIndex]);
   };
 
   const handleSubTopicUnderstood = () => {
-    setSubTopicDone(true);
-    // If more steps remain, auto-advance step index
     if (currentRoadmapStep < topic.roadmap.length - 1) {
-      setCurrentRoadmapStep(prev => prev + 1);
-      setSubTopicDone(false);
-      loadSubTopicExplanation(topic.roadmap[currentRoadmapStep + 1]);
+      const next = currentRoadmapStep + 1;
+      setCurrentRoadmapStep(next);
+      loadSubTopicExplanation(topic.roadmap[next]);
     } else {
-      // All sub-topics done — close panel
       setShowNextSubTopic(false);
     }
   };
