@@ -2,7 +2,7 @@
   min-height: 100vh;
   background: var(--bg-page);
   padding-left: 60px;
-  padding-top: 56px;
+  padding-top: 52px;
 }
 
 @media (max-width: 768px) {

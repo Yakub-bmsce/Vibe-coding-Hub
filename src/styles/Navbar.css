@@ -1,15 +1,14 @@
 .navbar {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border);
-  padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.2);
   transition: background 0.3s ease;
-  height: 56px;
+  height: 52px;
   display: flex;
   align-items: center;
 }
@@ -23,37 +22,69 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  gap: 8px;
 }
 
 .navbar-brand h2 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--neon-glow);
 }
 
 .user-info {
-  padding: 5px 12px;
+  padding: 5px 10px;
   background: var(--bg-hover);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   color: var(--text-primary);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   text-transform: capitalize;
-  max-width: 120px;
+  max-width: 80px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* hide user-info text on very small screens */
+.btn.btn-secondary {
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 16px;
+  white-space: nowrap;
+}
+
 @media (max-width: 400px) {
   .user-info { display: none; }
-  .navbar-brand h2 { font-size: 18px; }
+  .navbar-brand h2 { font-size: 16px; }
 }

@@ -2,9 +2,9 @@
 .sidebar {
   position: fixed;
   left: 0;
-  top: 56px;
+  top: 52px;
   width: 60px;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 52px);
   background: var(--bg-card);
   border-right: 1px solid var(--border);
   padding: 16px 0 0;
