@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Breadcrumb from '../components/Breadcrumb';
 import { getDomainById, getTopicByIds } from '../data/domains';
-import { generateTopicExplanation, generateSimplifiedExplanation, generateTopicQuiz } from '../api/groqAI';
+import { generateTopicExplanation, generateSimplifiedExplanation, generateTopicQuiz, generateLesson } from '../api/groqAI';
 import { searchVideos } from '../api/growAPI';
 import { addXP } from '../utils/xpSystem';
 import '../styles/TopicDetailPage.css';
@@ -28,6 +28,13 @@ const TopicDetailPage = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [userAnswers, setUserAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
+
+  // Next sub-topic toggle state
+  const [showNextSubTopic, setShowNextSubTopic] = useState(false);
+  const [currentRoadmapStep, setCurrentRoadmapStep] = useState(0);
+  const [subTopicExplanation, setSubTopicExplanation] = useState('');
+  const [isLoadingSubTopic, setIsLoadingSubTopic] = useState(false);
+  const [subTopicDone, setSubTopicDone] = useState(false);
 
   useEffect(() => {
     if (activeTab === 'concepts' && !explanation) {
@@ -171,6 +178,40 @@ const TopicDetailPage = () => {
     return tabNames[activeTab];
   };
 
+  // Load AI explanation for a specific roadmap sub-topic
+  const loadSubTopicExplanation = async (stepName) => {
+    setIsLoadingSubTopic(true);
+    setSubTopicExplanation('');
+    try {
+      const result = await generateLesson(`${stepName} in ${topic.name}`);
+      setSubTopicExplanation(result);
+    } catch (e) {
+      setSubTopicExplanation('Could not load explanation. Please try again.');
+    } finally {
+      setIsLoadingSubTopic(false);
+    }
+  };
+
+  const handleOpenSubTopic = (stepIndex) => {
+    setCurrentRoadmapStep(stepIndex);
+    setShowNextSubTopic(true);
+    setSubTopicDone(false);
+    loadSubTopicExplanation(topic.roadmap[stepIndex]);
+  };
+
+  const handleSubTopicUnderstood = () => {
+    setSubTopicDone(true);
+    // If more steps remain, auto-advance step index
+    if (currentRoadmapStep < topic.roadmap.length - 1) {
+      setCurrentRoadmapStep(prev => prev + 1);
+      setSubTopicDone(false);
+      loadSubTopicExplanation(topic.roadmap[currentRoadmapStep + 1]);
+    } else {
+      // All sub-topics done — close panel
+      setShowNextSubTopic(false);
+    }
+  };
+
   if (!domain || !topic) {
     return (
       <div className="topic-detail-page">
@@ -253,6 +294,61 @@ const TopicDetailPage = () => {
                     <div className="explanation-content">
                       <pre>{explanation}</pre>
                     </div>
+
+                    {/* ── Sub-topic roadmap toggle ── */}
+                    {topic.roadmap && topic.roadmap.length > 0 && (
+                      <div className="subtopic-section">
+                        <div className="subtopic-header-row">
+                          <h3>📖 Learn Sub-Topics of {topic.name}</h3>
+                          <p>Master each concept step by step before moving on</p>
+                        </div>
+                        <div className="subtopic-steps">
+                          {topic.roadmap.map((step, idx) => (
+                            <button
+                              key={idx}
+                              className={`subtopic-pill ${currentRoadmapStep === idx && showNextSubTopic ? 'active' : ''}`}
+                              onClick={() => handleOpenSubTopic(idx)}
+                            >
+                              <span className="subtopic-num">{idx + 1}</span>
+                              <span>{step}</span>
+                            </button>
+                          ))}
+                        </div>
+
+                        {showNextSubTopic && (
+                          <div className="subtopic-panel">
+                            <div className="subtopic-panel-header">
+                              <h4>📚 {topic.roadmap[currentRoadmapStep]}</h4>
+                              <button className="subtopic-close" onClick={() => setShowNextSubTopic(false)}>✕</button>
+                            </div>
+                            {isLoadingSubTopic ? (
+                              <div className="loading">Loading explanation for {topic.roadmap[currentRoadmapStep]}...</div>
+                            ) : (
+                              <>
+                                <div className="subtopic-explanation">
+                                  <pre>{subTopicExplanation}</pre>
+                                </div>
+                                <div className="concept-actions">
+                                  <button className="btn btn-secondary" onClick={() => loadSubTopicExplanation(topic.roadmap[currentRoadmapStep])}>
+                                    🤔 Explain differently
+                                  </button>
+                                  {currentRoadmapStep < topic.roadmap.length - 1 ? (
+                                    <button className="btn btn-success" onClick={handleSubTopicUnderstood}>
+                                      ✅ Got it — Next: {topic.roadmap[currentRoadmapStep + 1]} →
+                                    </button>
+                                  ) : (
+                                    <button className="btn btn-success" onClick={() => setShowNextSubTopic(false)}>
+                                      ✅ All sub-topics done!
+                                    </button>
+                                  )}
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
                     <div className="concept-actions">
                       <button className="btn btn-secondary" onClick={handleSimplify}>
                         🤔 I still don't understand - Simplify more
