@@ -37,7 +37,7 @@ const LoginPage = () => {
       
       <div className="login-card fade-in">
         <div className="login-header">
-          <h1 className="gradient-text">Vibe Learning Hub</h1>
+          <h1 className="gradient-text">Vibe Learner</h1>
           <p>AI-Powered Learning Platform</p>
         </div>
 

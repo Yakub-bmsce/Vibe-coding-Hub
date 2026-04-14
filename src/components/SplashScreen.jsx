@@ -16,7 +16,7 @@ const SplashScreen = ({ onDone }) => {
       <div className="splash-content">
         <div className="splash-logo">
           <span className="splash-icon">⚡</span>
-          <h1 className="splash-title">Vibe Learning</h1>
+          <h1 className="splash-title">Vibe Learner</h1>
         </div>
         <p className="splash-tagline">AI-Powered Learning Platform</p>
         <div className="splash-bar">

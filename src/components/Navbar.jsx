@@ -18,7 +18,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-content">
         <div className="navbar-brand">
-          <h2 className="gradient-text">Vibe Learning</h2>
+          <h2 className="gradient-text">Vibe Learner</h2>
         </div>
 
         <div className="navbar-actions">
