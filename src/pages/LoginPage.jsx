@@ -7,23 +7,26 @@ const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const { login, signup } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError('');
+    if (!email.includes('@') || !email.includes('.')) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    if (password.length < 4) {
+      setError('Password must be at least 4 characters.');
+      return;
+    }
     if (isLogin) {
       login(email, password);
     } else {
       signup(email, password);
     }
-    navigate('/dashboard');
-  };
-
-  const handleDemoLogin = () => {
-    setEmail('demo@vibelearning.com');
-    setPassword('demo123');
-    login('demo@vibelearning.com', 'demo123');
     navigate('/dashboard');
   };
 
@@ -34,7 +37,7 @@ const LoginPage = () => {
         <div className="gradient-orb orb-2"></div>
         <div className="gradient-orb orb-3"></div>
       </div>
-      
+
       <div className="login-card fade-in">
         <div className="login-header">
           <h1 className="gradient-text">Vibe Learner</h1>
@@ -48,7 +51,7 @@ const LoginPage = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
+              placeholder="you@example.com"
               required
             />
           </div>
@@ -64,22 +67,16 @@ const LoginPage = () => {
             />
           </div>
 
+          {error && <p className="login-error">{error}</p>}
+
           <button type="submit" className="btn btn-primary login-btn">
             {isLogin ? 'Login' : 'Sign Up'}
-          </button>
-
-          <button 
-            type="button" 
-            onClick={handleDemoLogin} 
-            className="btn btn-secondary demo-btn"
-          >
-            🚀 Try Demo Login
           </button>
 
           <div className="toggle-auth">
             <p>
               {isLogin ? "Don't have an account? " : "Already have an account? "}
-              <span onClick={() => setIsLogin(!isLogin)} className="toggle-link">
+              <span onClick={() => { setIsLogin(!isLogin); setError(''); }} className="toggle-link">
                 {isLogin ? 'Sign Up' : 'Login'}
               </span>
             </p>

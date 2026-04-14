@@ -185,3 +185,14 @@
   box-shadow: 0 8px 20px rgba(183, 148, 246, 0.4);
 }
 
+
+.login-error {
+  color: #f87171;
+  font-size: 13px;
+  text-align: center;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0;
+}
