@@ -48,21 +48,24 @@ code, pre {
 [data-theme="light"] {
   --bg-page:       linear-gradient(180deg, #f0eaff 0%, #e8d5ff 40%, #dcc4ff 100%);
   --bg-page-solid: #f0eaff;
-  --primary:        #7c3aed;
+  --primary:        #6d28d9;
   --primary-dark:   #5b21b6;
-  --secondary:      #6d28d9;
+  --secondary:      #7c3aed;
   --accent:         #db2777;
+  --success:        #059669;
+  --warning:        #d97706;
+  --danger:         #dc2626;
   --bg-dark:        #f0eaff;
-  --bg-card:        rgba(255, 255, 255, 0.9);
+  --bg-card:        rgba(255, 255, 255, 0.92);
   --bg-hover:       rgba(237, 233, 254, 0.95);
   --text-primary:   #1a0533;
-  --text-secondary: #5b21b6;
+  --text-secondary: #4c1d95;
   --border:         #c4b5fd;
-  --purple-light:   #ede9fe;
+  --purple-light:   #6d28d9;
   --purple-medium:  #7c3aed;
   --purple-dark:    #5b21b6;
   --neon-purple:    #7c3aed;
-  --neon-glow:      rgba(124, 58, 237, 0.25);
+  --neon-glow:      rgba(124, 58, 237, 0.2);
 }
 
 /* ── Body ── */
@@ -171,7 +174,14 @@ input::placeholder, textarea::placeholder {
 
 /* ── Gradient text ── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--purple-light), var(--accent));
+  background: linear-gradient(135deg, var(--purple-medium), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="light"] .gradient-text {
+  background: linear-gradient(135deg, #5b21b6, #db2777);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

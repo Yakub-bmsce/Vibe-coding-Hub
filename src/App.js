@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -12,6 +12,7 @@ import RevisionPage from './pages/RevisionPage';
 import DomainPage from './pages/DomainPage';
 import TopicDetailPage from './pages/TopicDetailPage';
 import ChatbotWidget from './components/ChatbotWidget';
+import SplashScreen from './components/SplashScreen';
 
 const ProtectedRoute = ({ children }) => {
   return children;
@@ -40,10 +41,21 @@ function AppContent() {
 }
 
 function App() {
+  // Show splash only once per browser session
+  const [showSplash, setShowSplash] = useState(
+    () => !sessionStorage.getItem('splashShown')
+  );
+
+  const handleSplashDone = () => {
+    sessionStorage.setItem('splashShown', '1');
+    setShowSplash(false);
+  };
+
   return (
     <Router>
       <AuthProvider>
         <ThemeProvider>
+          {showSplash && <SplashScreen onDone={handleSplashDone} />}
           <AppContent />
         </ThemeProvider>
       </AuthProvider>
