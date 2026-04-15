@@ -1,34 +1,51 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { chatWithAI } from '../api/groqAI';
+import { getStreak } from '../utils/progressTracker';
 import '../styles/ChatbotWidget.css';
+
+const DOMAINS = [
+  '💻 Programming', '🌐 Web Dev', '🧮 DSA', '🗄️ Databases',
+  '🤖 ML / AI', '☁️ DevOps', '🔐 Security', '📱 Mobile Dev'
+];
+
+const getStreakNudge = () => {
+  const streak = getStreak();
+  if (streak === 0) return "😤 Bro you didn't study today! Open a topic and let's go!";
+  if (streak === 1) return "🔥 Day 1 streak! Keep it going tomorrow!";
+  return `🔥 ${streak} day streak! You're on fire, keep it up!`;
+};
+
+const WELCOME = {
+  role: 'assistant',
+  content: '__welcome__'
+};
 
 const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([WELCOME]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   // Drag state
-  const [pos, setPos] = useState({ x: null, y: null }); // null = use CSS default
+  const [pos, setPos] = useState({ x: null, y: null });
   const [dragging, setDragging] = useState(false);
+  const didDrag = useRef(false);
   const dragOffset = useRef({ x: 0, y: 0 });
   const toggleRef = useRef(null);
   const messagesEndRef = useRef(null);
 
-  // Init default position bottom-right
   useEffect(() => {
     setPos({ x: window.innerWidth - 88, y: window.innerHeight - 88 });
   }, []);
 
-  const scrollToBottom = () => {
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, [messages]);
 
-  useEffect(() => { scrollToBottom(); }, [messages]);
-
-  // ── Mouse drag ──────────────────────────────────────────────────────────
+  // ── Mouse drag ──
   const onMouseDown = (e) => {
     e.preventDefault();
+    didDrag.current = false;
     const rect = toggleRef.current.getBoundingClientRect();
     dragOffset.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     setDragging(true);
@@ -36,6 +53,7 @@ const ChatbotWidget = () => {
 
   const onMouseMove = useCallback((e) => {
     if (!dragging) return;
+    didDrag.current = true;
     const x = Math.min(Math.max(0, e.clientX - dragOffset.current.x), window.innerWidth - 64);
     const y = Math.min(Math.max(0, e.clientY - dragOffset.current.y), window.innerHeight - 64);
     setPos({ x, y });
@@ -54,8 +72,9 @@ const ChatbotWidget = () => {
     };
   }, [dragging, onMouseMove, onMouseUp]);
 
-  // ── Touch drag ──────────────────────────────────────────────────────────
+  // ── Touch drag ──
   const onTouchStart = (e) => {
+    didDrag.current = false;
     const touch = e.touches[0];
     const rect = toggleRef.current.getBoundingClientRect();
     dragOffset.current = { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
@@ -64,6 +83,7 @@ const ChatbotWidget = () => {
 
   const onTouchMove = useCallback((e) => {
     if (!dragging) return;
+    didDrag.current = true;
     e.preventDefault();
     const touch = e.touches[0];
     const x = Math.min(Math.max(0, touch.clientX - dragOffset.current.x), window.innerWidth - 64);
@@ -84,19 +104,21 @@ const ChatbotWidget = () => {
     };
   }, [dragging, onTouchMove, onTouchEnd]);
 
-  // ── Chat ────────────────────────────────────────────────────────────────
-  const handleSend = async () => {
-    if (!input.trim()) return;
-    const userMessage = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
+  // ── Chat ──
+  const handleSend = async (text) => {
+    const msg = text || input;
+    if (!msg.trim()) return;
+    setMessages(prev => [...prev, { role: 'user', content: msg }]);
     setInput('');
     setIsLoading(true);
     try {
-      const history = messages.map(m => ({ role: m.role, content: m.content }));
-      const response = await chatWithAI(input, history);
+      const history = messages
+        .filter(m => m.content !== '__welcome__')
+        .map(m => ({ role: m.role, content: m.content }));
+      const response = await chatWithAI(msg, history);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
     } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, something went wrong. Try again.' }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, something went wrong. Try again!' }]);
     } finally {
       setIsLoading(false);
     }
@@ -106,19 +128,11 @@ const ChatbotWidget = () => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
   };
 
-  // Window position relative to toggle
-  const toggleStyle = pos.x !== null ? {
-    left: pos.x,
-    top: pos.y,
-    bottom: 'auto',
-    right: 'auto',
-  } : {};
-
+  const toggleStyle = pos.x !== null ? { left: pos.x, top: pos.y, bottom: 'auto', right: 'auto' } : {};
   const windowStyle = pos.x !== null ? {
-    left: Math.min(pos.x, window.innerWidth - (window.innerWidth < 480 ? window.innerWidth - 24 : 420) - 12),
-    top: Math.max(8, pos.y - 560),
-    bottom: 'auto',
-    right: 'auto',
+    left: Math.min(pos.x, window.innerWidth - (window.innerWidth < 500 ? window.innerWidth - 16 : 400) - 8),
+    top: Math.max(8, pos.y - 580),
+    bottom: 'auto', right: 'auto',
   } : {};
 
   return (
@@ -129,31 +143,57 @@ const ChatbotWidget = () => {
         style={toggleStyle}
         onMouseDown={onMouseDown}
         onTouchStart={onTouchStart}
-        onClick={() => !dragging && setIsOpen(o => !o)}
-        title="Drag me · Click to chat"
-        aria-label="AI Tutor"
+        onClick={() => { if (!didDrag.current) setIsOpen(o => !o); }}
+        title="AI Study Buddy"
+        aria-label="AI Study Buddy"
       >
-        {isOpen ? '✕' : '💬'}
+        {isOpen ? '✕' : '🤖'}
       </button>
 
       {isOpen && (
-        <div className="chatbot-window fade-in" style={windowStyle}>
+        <div className="chatbot-window" style={windowStyle}>
           <div className="chatbot-header">
-            <h3>✨ AI Tutor</h3>
-            <p>Ask me anything about programming!</p>
+            <div className="chatbot-header-left">
+              <span className="chatbot-avatar">🤖</span>
+              <div>
+                <h3>AI Study Buddy</h3>
+                <span className="chatbot-status">● Online</span>
+              </div>
+            </div>
+            <button className="chatbot-close-btn" onClick={() => setIsOpen(false)}>✕</button>
           </div>
 
           <div className="chatbot-messages">
-            {messages.length === 0 && (
-              <div className="chatbot-welcome">
-                <p>👋 Hi! I'm your AI tutor. How can I help you today?</p>
-              </div>
-            )}
             {messages.map((msg, idx) => (
-              <div key={idx} className={`message ${msg.role}`}>
-                <div className="message-content">{msg.content}</div>
-              </div>
+              msg.content === '__welcome__' ? (
+                <div key={idx} className="chatbot-welcome-block">
+                  <div className="message assistant">
+                    <div className="message-content">
+                      👋 Hey! I'm your <strong>AI Study Buddy</strong>.<br />
+                      How can I help you today?
+                    </div>
+                  </div>
+
+                  <div className="streak-nudge">
+                    {getStreakNudge()}
+                  </div>
+
+                  <p className="domain-prompt">Pick a topic to get started:</p>
+                  <div className="domain-chips">
+                    {DOMAINS.map((d, i) => (
+                      <button key={i} className="domain-chip" onClick={() => handleSend(`Tell me about ${d.replace(/^[^ ]+ /, '')}`)}>
+                        {d}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div key={idx} className={`message ${msg.role}`}>
+                  <div className="message-content">{msg.content}</div>
+                </div>
+              )
             ))}
+
             {isLoading && (
               <div className="message assistant">
                 <div className="message-content typing">
@@ -169,12 +209,10 @@ const ChatbotWidget = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Type your question..."
+              placeholder="Ask anything..."
               rows="2"
             />
-            <button onClick={handleSend} disabled={!input.trim() || isLoading} className="btn-send">
-              ➤
-            </button>
+            <button onClick={() => handleSend()} disabled={!input.trim() || isLoading} className="btn-send">➤</button>
           </div>
         </div>
       )}
