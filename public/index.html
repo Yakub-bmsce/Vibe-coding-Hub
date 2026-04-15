@@ -3,19 +3,86 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- ── Primary SEO ── -->
+    <title>Vibe Learner — AI-Powered Coding & Programming Learning Platform</title>
+    <meta name="description" content="Vibe Learner is a free AI-powered learning platform to master programming, web development, data structures, machine learning, and more. Learn with concepts, videos, games, and quizzes." />
+    <meta name="keywords" content="learn programming, coding platform, AI tutor, web development, Python, JavaScript, data structures, machine learning, free coding course, online learning" />
+    <meta name="author" content="Vibe Learner" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://vibe-coding-hub-lilac.vercel.app/" />
+
+    <!-- ── Open Graph (Facebook, WhatsApp, LinkedIn) ── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vibe-coding-hub-lilac.vercel.app/" />
+    <meta property="og:title" content="Vibe Learner — AI-Powered Coding Learning Platform" />
+    <meta property="og:description" content="Master programming with AI-powered lessons, videos, quizzes and games. Learn Python, JavaScript, DSA, ML and more — completely free." />
+    <meta property="og:image" content="https://vibe-coding-hub-lilac.vercel.app/og-image.png" />
+    <meta property="og:site_name" content="Vibe Learner" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ── Twitter Card ── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://vibe-coding-hub-lilac.vercel.app/" />
+    <meta name="twitter:title" content="Vibe Learner — AI-Powered Coding Learning Platform" />
+    <meta name="twitter:description" content="Master programming with AI-powered lessons, videos, quizzes and games. Learn Python, JavaScript, DSA, ML and more — free." />
+    <meta name="twitter:image" content="https://vibe-coding-hub-lilac.vercel.app/og-image.png" />
+
+    <!-- ── PWA / Mobile ── -->
     <meta name="theme-color" content="#1e1147" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="description" content="Vibe Learner - AI-Powered Learning Platform" />
-    <title>Vibe Learning Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <meta name="apple-mobile-web-app-title" content="Vibe Learner" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- ── Structured Data (JSON-LD) ── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Vibe Learner",
+      "url": "https://vibe-coding-hub-lilac.vercel.app/",
+      "description": "AI-powered platform to learn programming, web development, data structures, machine learning and more through interactive lessons, videos, quizzes and games.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "AI-powered concept explanations",
+        "Interactive quizzes and games",
+        "Video tutorials",
+        "Learning roadmaps",
+        "Progress tracking with XP and streaks"
+      ],
+      "educationalUse": "Self-paced learning",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student"
+      }
+    }
+    </script>
+
+    <!-- ── Fonts ── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- ── Theme (no flash) ── -->
     <script>
-      // Apply saved theme instantly — default dark
       document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
     </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <div style="text-align:center;padding:40px;font-family:sans-serif;background:#1e1147;color:#e9b3ff;min-height:100vh">
+        <h1>Vibe Learner</h1>
+        <p>AI-Powered Coding &amp; Programming Learning Platform</p>
+        <p>Please enable JavaScript to use this application.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
   </body>
 </html>
