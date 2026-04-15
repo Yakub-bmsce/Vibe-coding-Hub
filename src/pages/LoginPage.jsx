@@ -60,8 +60,8 @@ const LoginPage = () => {
           <div className="hero-badge">✨ AI-Powered Learning</div>
 
           <h1 className="hero-title">
-            Master<br />
-            <span className="hero-rotating">{DOMAINS[domainIdx]}</span><br />
+            <span className="hero-master">Master</span>
+            <span className="hero-rotating">{DOMAINS[domainIdx]}</span>
             <span className="hero-sub">like never before</span>
           </h1>
 

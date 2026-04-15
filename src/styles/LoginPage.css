@@ -101,6 +101,17 @@
   color: #f0f0ff;
   margin-bottom: 20px;
   letter-spacing: -0.03em;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero-master {
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .hero-rotating {

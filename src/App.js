@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import LoginPage from './pages/LoginPage';
@@ -20,6 +20,8 @@ const ProtectedRoute = ({ children }) => {
 
 function AppContent() {
   const { isAuthenticated } = useAuth();
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login' || location.pathname === '/';
 
   return (
     <>
@@ -35,7 +37,7 @@ function AppContent() {
         <Route path="/revision" element={<ProtectedRoute><RevisionPage /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
-      {isAuthenticated && <ChatbotWidget />}
+      {isAuthenticated && !isLoginPage && <ChatbotWidget />}
     </>
   );
 }
