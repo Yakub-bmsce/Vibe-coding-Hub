@@ -353,7 +353,7 @@ Requirements:
 
 // ── Visual Learning AI generators ─────────────────────────────────────────────
 
-const callGroqVisual = async (prompt) => {
+const callGroqVisual = async (prompt, retries = 2) => {
   if (!GROQ_API_KEY || GROQ_API_KEY === 'your_groq_api_key_here') {
     throw new Error('API key not configured');
   }
@@ -370,15 +370,19 @@ const callGroqVisual = async (prompt) => {
       max_tokens: 2000
     })
   });
-  if (!response.ok) {
-    if (response.status === 429) throw new Error('Rate limit reached. Please wait 1 minute and retry.');
-    throw new Error(`API error ${response.status}`);
+
+  if (response.status === 429) {
+    if (retries <= 0) throw new Error('Rate limit reached. Please wait a minute and retry.');
+    const wait = parseInt(response.headers.get('retry-after') || '15', 10) * 1000;
+    await new Promise(r => setTimeout(r, wait));
+    return callGroqVisual(prompt, retries - 1);
   }
+
+  if (!response.ok) throw new Error(`API error ${response.status}`);
+
   const data = await response.json();
   const text = data.choices[0].message.content;
-  // Strip any markdown wrapping
   const clean = text.replace(/^```[a-z]*\n?/gm, '').replace(/^```\n?/gm, '').trim();
-  // Find JSON object/array in response
   const jsonMatch = clean.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
   if (!jsonMatch) throw new Error('No JSON found in response');
   return JSON.parse(jsonMatch[0]);
