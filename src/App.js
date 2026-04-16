@@ -11,6 +11,7 @@ import GameLearningPage from './pages/GameLearningPage';
 import RevisionPage from './pages/RevisionPage';
 import DomainPage from './pages/DomainPage';
 import TopicDetailPage from './pages/TopicDetailPage';
+import LeaderboardPage from './pages/LeaderboardPage';
 import ChatbotWidget from './components/ChatbotWidget';
 import SplashScreen from './components/SplashScreen';
 
@@ -43,6 +44,7 @@ function AppContent() {
         <Route path="/roadmap" element={<ProtectedRoute><RoadmapPage /></ProtectedRoute>} />
         <Route path="/games" element={<ProtectedRoute><GameLearningPage /></ProtectedRoute>} />
         <Route path="/revision" element={<ProtectedRoute><RevisionPage /></ProtectedRoute>} />
+        <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
       {isAuthenticated && !isLoginPage && <ChatbotWidget />}

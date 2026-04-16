@@ -214,9 +214,9 @@ const DashboardPage = () => {
   };
 
   const learningPaths = [
-    { title: 'Learn by Concepts', description: 'Structured lessons and practice', icon: '📚', path: '/concepts' },
-    { title: 'Videos & Roadmaps', description: 'Curated video tutorials', icon: '🎥', path: '/videos' },
-    { title: 'Learn by Games', description: 'Interactive games and challenges', icon: '🎮', path: '/games' }
+    { title: 'Visual Learning', description: 'Learn with diagrams, mind maps and visual explanations', icon: '🎨', path: '/concepts' },
+    { title: 'Community Notes', description: 'Shared notes and tips from fellow learners', icon: '📝', path: '/revision' },
+    { title: 'Leaderboard', description: 'See top learners ranked by XP and streaks', icon: '🏆', path: '/leaderboard' }
   ];
 
   return (

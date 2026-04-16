@@ -1,0 +1,169 @@
+.lb-page {
+  min-height: 100vh;
+  background: var(--bg-page);
+}
+
+.lb-content {
+  margin-left: 60px;
+  padding: 40px 20px 80px;
+}
+
+.lb-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.lb-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(135deg, #e9b3ff, #ff69b4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.lb-header p { color: var(--text-secondary); font-size: 1rem; }
+
+/* ── My rank banner ── */
+.lb-my-rank {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.15));
+  border: 1px solid rgba(139,92,246,0.4);
+  border-radius: 14px;
+  padding: 14px 20px;
+  margin-bottom: 24px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.lb-my-pos  { font-size: 1.4rem; font-weight: 800; color: #a78bfa; }
+.lb-my-name { font-weight: 700; color: var(--text-primary); flex: 1; }
+.lb-my-xp   { color: #a78bfa; font-weight: 600; font-size: 0.9rem; }
+.lb-my-streak { color: #fb923c; font-weight: 600; font-size: 0.9rem; }
+
+/* ── Tabs ── */
+.lb-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.lb-tab {
+  padding: 8px 24px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.lb-tab.active {
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(124,58,237,0.4);
+}
+
+/* ── List ── */
+.lb-list {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: all 0.2s;
+}
+
+.lb-row:hover { transform: translateX(4px); border-color: rgba(139,92,246,0.4); }
+
+.lb-row.me {
+  background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(236,72,153,0.1));
+  border-color: rgba(139,92,246,0.5);
+  box-shadow: 0 0 16px rgba(139,92,246,0.2);
+}
+
+.lb-row.top3 { border-color: rgba(251,191,36,0.3); }
+
+.lb-pos {
+  font-size: 1.3rem;
+  font-weight: 800;
+  min-width: 40px;
+  text-align: center;
+}
+
+.lb-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lb-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lb-name {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lb-you-tag {
+  background: rgba(139,92,246,0.3);
+  color: #c4b5fd;
+  font-size: 0.7rem;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.lb-rank-label { color: var(--text-secondary); font-size: 0.78rem; }
+
+.lb-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.lb-xp     { color: #a78bfa; font-weight: 600; font-size: 0.85rem; }
+.lb-streak { color: #fb923c; font-weight: 600; font-size: 0.82rem; }
+
+@media (max-width: 768px) {
+  .lb-content { margin-left: 0; padding: 20px 16px 80px; }
+  .lb-row { padding: 12px 14px; gap: 10px; }
+}
