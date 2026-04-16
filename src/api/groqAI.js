@@ -350,3 +350,38 @@ Requirements:
     ];
   }
 };
+
+// ── Visual Learning AI generators ─────────────────────────────────────────────
+
+const callGroq = async (prompt) => {
+  const response = await fetch(GROQ_API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.7,
+      max_tokens: 2000
+    })
+  });
+  const data = await response.json();
+  const text = data.choices[0].message.content;
+  const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+  return JSON.parse(clean);
+};
+
+export const generateMindMap = (domain) => callGroq(
+  `Create a mind map for ${domain} in CS. Return ONLY valid JSON, no extra text:\n{"root":"${domain}","branches":[{"label":"string","children":["string"]}]}`
+);
+
+export const generateFlowchart = (domain) => callGroq(
+  `Create a step-by-step learning flowchart for ${domain} in CS with 6-8 steps. Return ONLY valid JSON, no extra text:\n{"steps":[{"id":"s1","label":"string","type":"start","next":"s2"},{"id":"s2","label":"string","type":"process","next":"s3"},{"id":"s3","label":"string","type":"decision","next":["s4","s5"]},{"id":"s4","label":"Yes path","type":"process","next":"s6"},{"id":"s5","label":"No path","type":"process","next":"s6"},{"id":"s6","label":"string","type":"end","next":null}]}`
+);
+
+export const generateDiagram = (domain) => callGroq(
+  `Create an architecture diagram for ${domain} in CS with 4-6 components. Return ONLY valid JSON, no extra text:\n{"components":[{"id":"c1","name":"string","description":"string"}],"connections":[{"from":"c1","to":"c2","label":"string"}]}`
+);
+
+export const generateTimeline = (domain) => callGroq(
+  `Create a learning timeline to master ${domain} in CS with 5-6 phases. Return ONLY valid JSON, no extra text:\n{"phases":[{"week":"Week 1-2","title":"string","topics":["string","string"],"milestone":"string"}]}`
+);

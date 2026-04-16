@@ -48,6 +48,8 @@ function AppContent() {
         <Route path="/revision" element={<ProtectedRoute><RevisionPage /></ProtectedRoute>} />
         <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
         <Route path="/visual-learning" element={<ProtectedRoute><VisualLearningPage /></ProtectedRoute>} />
+        <Route path="/visual-learning/:type" element={<ProtectedRoute><VisualLearningPage /></ProtectedRoute>} />
+        <Route path="/visual-learning/:type/:domainId" element={<ProtectedRoute><VisualLearningPage /></ProtectedRoute>} />
         <Route path="/community-notes" element={<ProtectedRoute><CommunityNotesPage /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
