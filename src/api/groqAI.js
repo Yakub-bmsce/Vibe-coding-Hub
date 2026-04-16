@@ -361,13 +361,13 @@ const callGroqVisual = async (prompt, retries = 2) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
     body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
+      model: 'llama3-8b-8192',
       messages: [
         { role: 'system', content: 'You are a JSON generator. Return ONLY valid JSON with no markdown, no code blocks, no explanation.' },
         { role: 'user', content: prompt }
       ],
       temperature: 0.5,
-      max_tokens: 2000
+      max_tokens: 1500
     })
   });
 
