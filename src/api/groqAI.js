@@ -353,35 +353,46 @@ Requirements:
 
 // ── Visual Learning AI generators ─────────────────────────────────────────────
 
-const callGroq = async (prompt) => {
+const callGroqVisual = async (prompt) => {
+  if (!GROQ_API_KEY || GROQ_API_KEY === 'your_groq_api_key_here') {
+    throw new Error('API key not configured');
+  }
   const response = await fetch(GROQ_API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
     body: JSON.stringify({
       model: 'llama-3.3-70b-versatile',
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.7,
+      messages: [
+        { role: 'system', content: 'You are a JSON generator. Return ONLY valid JSON with no markdown, no code blocks, no explanation.' },
+        { role: 'user', content: prompt }
+      ],
+      temperature: 0.5,
       max_tokens: 2000
     })
   });
+  if (!response.ok) throw new Error(`API error ${response.status}`);
   const data = await response.json();
   const text = data.choices[0].message.content;
-  const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-  return JSON.parse(clean);
+  // Strip any markdown wrapping
+  const clean = text.replace(/^```[a-z]*\n?/gm, '').replace(/^```\n?/gm, '').trim();
+  // Find JSON object/array in response
+  const jsonMatch = clean.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
+  if (!jsonMatch) throw new Error('No JSON found in response');
+  return JSON.parse(jsonMatch[0]);
 };
 
-export const generateMindMap = (domain) => callGroq(
-  `Create a mind map for ${domain} in CS. Return ONLY valid JSON, no extra text:\n{"root":"${domain}","branches":[{"label":"string","children":["string"]}]}`
+export const generateMindMap = (domain) => callGroqVisual(
+  `Create a mind map for learning ${domain} in computer science. Return ONLY this JSON structure:\n{"root":"${domain}","branches":[{"label":"Topic Name","children":["subtopic1","subtopic2","subtopic3"]},{"label":"Topic Name 2","children":["subtopic1","subtopic2"]}]}\nInclude 4-6 branches, each with 3-5 children.`
 );
 
-export const generateFlowchart = (domain) => callGroq(
-  `Create a step-by-step learning flowchart for ${domain} in CS with 6-8 steps. Return ONLY valid JSON, no extra text:\n{"steps":[{"id":"s1","label":"string","type":"start","next":"s2"},{"id":"s2","label":"string","type":"process","next":"s3"},{"id":"s3","label":"string","type":"decision","next":["s4","s5"]},{"id":"s4","label":"Yes path","type":"process","next":"s6"},{"id":"s5","label":"No path","type":"process","next":"s6"},{"id":"s6","label":"string","type":"end","next":null}]}`
+export const generateFlowchart = (domain) => callGroqVisual(
+  `Create a learning flowchart for ${domain} in computer science with 6-8 steps. Return ONLY this JSON:\n{"steps":[{"id":"s1","label":"Start Learning","type":"start"},{"id":"s2","label":"Learn Basics","type":"process"},{"id":"s3","label":"Understand Concepts?","type":"decision"},{"id":"s4","label":"Practice Exercises","type":"process"},{"id":"s5","label":"Build Projects","type":"process"},{"id":"s6","label":"Master ${domain}","type":"end"}]}\nUse types: start, process, decision, end.`
 );
 
-export const generateDiagram = (domain) => callGroq(
-  `Create an architecture diagram for ${domain} in CS with 4-6 components. Return ONLY valid JSON, no extra text:\n{"components":[{"id":"c1","name":"string","description":"string"}],"connections":[{"from":"c1","to":"c2","label":"string"}]}`
+export const generateDiagram = (domain) => callGroqVisual(
+  `Create an architecture diagram for ${domain} in computer science. Return ONLY this JSON:\n{"components":[{"id":"c1","name":"Component Name","description":"Brief description"},{"id":"c2","name":"Component 2","description":"Brief description"}],"connections":[{"from":"c1","to":"c2","label":"uses"}]}\nInclude 4-6 components with meaningful connections.`
 );
 
-export const generateTimeline = (domain) => callGroq(
-  `Create a learning timeline to master ${domain} in CS with 5-6 phases. Return ONLY valid JSON, no extra text:\n{"phases":[{"week":"Week 1-2","title":"string","topics":["string","string"],"milestone":"string"}]}`
+export const generateTimeline = (domain) => callGroqVisual(
+  `Create a learning timeline to master ${domain} in computer science. Return ONLY this JSON:\n{"phases":[{"week":"Week 1-2","title":"Phase Title","topics":["topic1","topic2","topic3"],"milestone":"Milestone description"}]}\nInclude 5-6 phases covering beginner to advanced.`
 );
