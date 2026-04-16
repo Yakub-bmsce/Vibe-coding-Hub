@@ -370,7 +370,10 @@ const callGroqVisual = async (prompt) => {
       max_tokens: 2000
     })
   });
-  if (!response.ok) throw new Error(`API error ${response.status}`);
+  if (!response.ok) {
+    if (response.status === 429) throw new Error('Rate limit reached. Please wait 1 minute and retry.');
+    throw new Error(`API error ${response.status}`);
+  }
   const data = await response.json();
   const text = data.choices[0].message.content;
   // Strip any markdown wrapping
