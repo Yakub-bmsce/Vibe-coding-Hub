@@ -214,8 +214,8 @@ const DashboardPage = () => {
   };
 
   const learningPaths = [
-    { title: 'Visual Learning', description: 'Learn with diagrams, mind maps and visual explanations', icon: '🎨', path: '/concepts' },
-    { title: 'Community Notes', description: 'Shared notes and tips from fellow learners', icon: '📝', path: '/revision' },
+    { title: 'Visual Learning', description: 'Learn with diagrams, mind maps and visual explanations', icon: '🎨', path: '/visual-learning' },
+    { title: 'Community Notes', description: 'Shared notes and tips from fellow learners', icon: '📝', path: '/community-notes' },
     { title: 'Leaderboard', description: 'See top learners ranked by XP and streaks', icon: '🏆', path: '/leaderboard' }
   ];
 

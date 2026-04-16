@@ -12,6 +12,8 @@ import RevisionPage from './pages/RevisionPage';
 import DomainPage from './pages/DomainPage';
 import TopicDetailPage from './pages/TopicDetailPage';
 import LeaderboardPage from './pages/LeaderboardPage';
+import VisualLearningPage from './pages/VisualLearningPage';
+import CommunityNotesPage from './pages/CommunityNotesPage';
 import ChatbotWidget from './components/ChatbotWidget';
 import SplashScreen from './components/SplashScreen';
 
@@ -45,6 +47,8 @@ function AppContent() {
         <Route path="/games" element={<ProtectedRoute><GameLearningPage /></ProtectedRoute>} />
         <Route path="/revision" element={<ProtectedRoute><RevisionPage /></ProtectedRoute>} />
         <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
+        <Route path="/visual-learning" element={<ProtectedRoute><VisualLearningPage /></ProtectedRoute>} />
+        <Route path="/community-notes" element={<ProtectedRoute><CommunityNotesPage /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
       {isAuthenticated && !isLoginPage && <ChatbotWidget />}

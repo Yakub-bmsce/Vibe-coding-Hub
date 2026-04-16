@@ -1,0 +1,62 @@
+.vl-page { min-height: 100vh; background: var(--bg-page); }
+.vl-content { margin-left: 60px; padding: 40px 20px 80px; }
+
+.vl-header { text-align: center; margin-bottom: 40px; }
+.vl-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(135deg, #e9b3ff, #ff69b4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px;
+}
+.vl-header p { color: var(--text-secondary); font-size: 1rem; }
+
+.vl-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.vl-type-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.vl-type-card:hover, .vl-type-card.active {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 20px rgba(139,92,246,0.3);
+  transform: translateY(-3px);
+}
+.vl-type-icon { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+.vl-type-card h3 { color: var(--text-primary); font-size: 1rem; margin: 0 0 4px; }
+.vl-type-card p  { color: var(--text-secondary); font-size: 0.82rem; margin: 0; }
+
+.vl-section-title { color: var(--text-primary); font-size: 1.4rem; margin-bottom: 20px; }
+
+.vl-domains { display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
+
+.vl-domain-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.vl-domain-card:hover { border-color: #8b5cf6; transform: translateX(6px); }
+.vl-domain-icon { font-size: 2rem; flex-shrink: 0; }
+.vl-domain-card h3 { color: var(--text-primary); font-size: 1rem; margin: 0 0 2px; }
+.vl-domain-card p  { color: var(--text-secondary); font-size: 0.8rem; margin: 0; }
+.vl-arrow { color: var(--text-secondary); font-size: 1.2rem; margin-left: auto; }
+
+@media (max-width: 768px) {
+  .vl-content { margin-left: 0; }
+  .vl-types { grid-template-columns: repeat(2, 1fr); }
+}

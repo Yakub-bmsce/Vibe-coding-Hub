@@ -8,20 +8,21 @@ import '../styles/Sidebar.css';
 const menuSections = [
   { label: 'Main',     items: [{ path: '/dashboard', icon: '🏠', label: 'Dashboard' }] },
   { label: 'Learn',    items: [
-    { path: '/concepts', icon: '📚', label: 'Concepts' },
-    { path: '/videos',   icon: '🎥', label: 'Videos' },
-    { path: '/roadmap',  icon: '🗺️', label: 'Roadmap' },
-    { path: '/games',    icon: '🎮', label: 'Games' },
+    { path: '/visual-learning', icon: '🎨', label: 'Visual Learning' },
+    { path: '/community-notes', icon: '📝', label: 'Community Notes' },
+    { path: '/leaderboard',     icon: '🏆', label: 'Leaderboard' },
+    { path: '/videos',          icon: '🎥', label: 'Videos' },
+    { path: '/games',           icon: '🎮', label: 'Games' },
   ]},
-  { label: 'Practice', items: [{ path: '/revision', icon: '📝', label: 'Revision' }] }
+  { label: 'Practice', items: [{ path: '/revision', icon: '📖', label: 'Revision' }] }
 ];
 
 const mobileNav = [
-  { path: '/dashboard', icon: '🏠', label: 'Home' },
-  { path: '/concepts',  icon: '📚', label: 'Learn' },
-  { path: '/games',     icon: '🎮', label: 'Games' },
-  { path: '/videos',    icon: '🎥', label: 'Videos' },
-  { path: '/revision',  icon: '📝', label: 'Revision' },
+  { path: '/dashboard',       icon: '🏠', label: 'Home' },
+  { path: '/visual-learning', icon: '🎨', label: 'Visual' },
+  { path: '/leaderboard',     icon: '🏆', label: 'Ranks' },
+  { path: '/videos',          icon: '🎥', label: 'Videos' },
+  { path: '/games',           icon: '🎮', label: 'Games' },
 ];
 
 const Sidebar = () => {
