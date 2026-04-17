@@ -363,11 +363,12 @@ const callGroqVisual = async (prompt, retries = 2) => {
     body: JSON.stringify({
       model: 'llama-3.1-8b-instant',
       messages: [
-        { role: 'system', content: 'You are a JSON generator. Return ONLY valid JSON. No markdown, no explanation, no code blocks.' },
+        { role: 'system', content: 'You are a JSON API. You MUST respond with ONLY a valid JSON object. No text before or after. No markdown. No explanation. Just the raw JSON.' },
         { role: 'user', content: prompt }
       ],
-      temperature: 0.3,
-      max_tokens: 1000
+      temperature: 0.1,
+      max_tokens: 1000,
+      response_format: { type: 'json_object' }
     })
   });
 
