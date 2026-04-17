@@ -389,17 +389,17 @@ const callGroqVisual = async (prompt, retries = 2) => {
 };
 
 export const generateMindMap = (domain) => callGroqVisual(
-  `Create a mind map for learning ${domain} in computer science. Return ONLY this JSON structure:\n{"root":"${domain}","branches":[{"label":"Topic Name","children":["subtopic1","subtopic2","subtopic3"]},{"label":"Topic Name 2","children":["subtopic1","subtopic2"]}]}\nInclude 4-6 branches, each with 3-5 children.`
+  `Create a mind map for ${domain} in CS. Return JSON only: {"root":"${domain}","branches":[{"label":"branch name","children":["child1","child2","child3"]}]} with 4-5 branches each having 3-4 children.`
 );
 
 export const generateFlowchart = (domain) => callGroqVisual(
-  `Create a learning flowchart for ${domain} in computer science with 6-8 steps. Return ONLY this JSON:\n{"steps":[{"id":"s1","label":"Start Learning","type":"start"},{"id":"s2","label":"Learn Basics","type":"process"},{"id":"s3","label":"Understand Concepts?","type":"decision"},{"id":"s4","label":"Practice Exercises","type":"process"},{"id":"s5","label":"Build Projects","type":"process"},{"id":"s6","label":"Master ${domain}","type":"end"}]}\nUse types: start, process, decision, end.`
+  `Create a learning flowchart for ${domain} in CS with 6 steps. Return JSON only: {"steps":[{"id":"s1","label":"Start","type":"start"},{"id":"s2","label":"Learn basics","type":"process"},{"id":"s3","label":"Practice?","type":"decision"},{"id":"s4","label":"Do exercises","type":"process"},{"id":"s5","label":"Build project","type":"process"},{"id":"s6","label":"Done","type":"end"}]} Use types: start, process, decision, end.`
 );
 
 export const generateDiagram = (domain) => callGroqVisual(
-  `Create an architecture diagram for ${domain} in computer science. Return ONLY this JSON:\n{"components":[{"id":"c1","name":"Component Name","description":"Brief description"},{"id":"c2","name":"Component 2","description":"Brief description"}],"connections":[{"from":"c1","to":"c2","label":"uses"}]}\nInclude 4-6 components with meaningful connections.`
+  `Create an architecture diagram for ${domain} in CS. Return JSON only: {"components":[{"id":"c1","name":"name","description":"desc"},{"id":"c2","name":"name2","description":"desc2"}],"connections":[{"from":"c1","to":"c2","label":"uses"}]} with 4-5 components.`
 );
 
 export const generateTimeline = (domain) => callGroqVisual(
-  `Create a learning timeline to master ${domain} in computer science. Return ONLY this JSON:\n{"phases":[{"week":"Week 1-2","title":"Phase Title","topics":["topic1","topic2","topic3"],"milestone":"Milestone description"}]}\nInclude 5-6 phases covering beginner to advanced.`
+  `Create a learning timeline for ${domain} in CS. Return JSON only: {"phases":[{"week":"Week 1-2","title":"Basics","topics":["topic1","topic2"],"milestone":"Can do X"}]} with 5-6 phases from beginner to advanced.`
 );
