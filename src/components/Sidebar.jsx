@@ -26,7 +26,6 @@ const mobileNav = [
 ];
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(null);
   const [progress, setProgress] = useState(0);

@@ -28,7 +28,6 @@ const SOCIAL_FIELDS = [
 const LS_NOTES    = 'cn_notes';
 const LS_SAVED    = 'cn_saved';
 const LS_SOCIALS  = 'user_socials';
-const LS_NOTIFS   = 'cn_notifications';
 
 const loadLS = (key, fallback) => {
   try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
