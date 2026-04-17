@@ -361,7 +361,7 @@ const callGroqVisual = async (prompt, retries = 2) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
     body: JSON.stringify({
-      model: 'mixtral-8x7b-32768',
+      model: 'llama-3.1-8b-instant',
       messages: [
         { role: 'system', content: 'You are a JSON generator. Return ONLY valid JSON. No markdown, no explanation, no code blocks.' },
         { role: 'user', content: prompt }
