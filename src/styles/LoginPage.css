@@ -353,51 +353,40 @@
 }
 
 /* ── Domain Ticker ── */
-.domain-ticker-wrap {
-  position: relative;
+.ticker-outer {
   overflow: hidden;
   width: 100%;
-  height: 56px;
+  height: 48px;
   margin: 6px 0 10px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
-.domain-ticker-fade {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 100px;
-  z-index: 2;
-  pointer-events: none;
-}
-.domain-ticker-fade.left  { left: 0;  background: linear-gradient(to right, #080612 30%, transparent); }
-.domain-ticker-fade.right { right: 0; background: linear-gradient(to left,  #080612 30%, transparent); }
-
-.domain-ticker-track {
+.ticker-track {
   display: flex;
   align-items: center;
-  white-space: nowrap;
-  will-change: transform;
+  width: max-content;
+  animation: ticker-scroll 40s linear infinite;
 }
 
-.domain-ticker-item {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-word {
   font-family: 'Syne', sans-serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  color: rgba(196,181,253,0.3);
-  transition: font-size 0.2s ease, color 0.2s ease;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 8px;
-  box-sizing: border-box;
+  color: rgba(196, 181, 253, 0.55);
+  padding: 0 28px;
+  white-space: nowrap;
+  display: inline-block;
+  animation: ticker-wave 2.4s ease-in-out infinite;
+  letter-spacing: 0.01em;
 }
 
-.domain-ticker-item.center {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #a78bfa;
-  text-shadow: 0 0 24px rgba(167,139,250,0.6);
-  letter-spacing: -0.03em;
+@keyframes ticker-wave {
+  0%,  100% { transform: translateY(0px);   opacity: 0.55; }
+  50%        { transform: translateY(-7px);  opacity: 0.9;  }
 }

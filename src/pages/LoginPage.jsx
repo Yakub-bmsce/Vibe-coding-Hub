@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/LoginPage.css';
@@ -25,54 +25,21 @@ const ALL_DOMAINS = [
   'Networking', 'TCP/IP', 'DNS', 'OSI Model',
 ];
 
-// Scrolling domain ticker component
+// Scrolling domain ticker — right to left, wave effect
 function DomainTicker() {
-  const [offset, setOffset] = useState(0);
-  const rafRef = useRef(null);
-  const speed = 0.8;
-  const itemWidth = 200; // fixed width — prevents overlap
-  const totalWidth = ALL_DOMAINS.length * itemWidth;
-  // Duplicate for seamless loop
-  const items = [...ALL_DOMAINS, ...ALL_DOMAINS];
-
-  useEffect(() => {
-    const animate = () => {
-      setOffset(prev => {
-        const next = prev - speed; // negative = left to right (items appear from left)
-        return next <= -totalWidth ? 0 : next;
-      });
-      rafRef.current = requestAnimationFrame(animate);
-    };
-    rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [totalWidth]);
-
-  // Highlight zone: left quarter of screen (below "Master" text)
-  const highlightZoneStart = 0;
-  const highlightZoneEnd   = itemWidth * 1.2;
-
+  const words = [...ALL_DOMAINS, ...ALL_DOMAINS]; // duplicate for seamless loop
   return (
-    <div className="domain-ticker-wrap">
-      <div className="domain-ticker-fade left" />
-      <div className="domain-ticker-fade right" />
-      <div
-        className="domain-ticker-track"
-        style={{ transform: `translateX(${offset}px)` }}
-      >
-        {items.map((d, i) => {
-          // Position of this item's center relative to the ticker container
-          const itemCenter = i * itemWidth + itemWidth / 2 + offset;
-          const isHighlighted = itemCenter >= highlightZoneStart && itemCenter <= highlightZoneEnd;
-          return (
-            <span
-              key={i}
-              className={`domain-ticker-item ${isHighlighted ? 'center' : ''}`}
-              style={{ width: itemWidth }}
-            >
-              {d}
-            </span>
-          );
-        })}
+    <div className="ticker-outer">
+      <div className="ticker-track">
+        {words.map((d, i) => (
+          <span
+            key={i}
+            className="ticker-word"
+            style={{ animationDelay: `${(i % ALL_DOMAINS.length) * -0.4}s` }}
+          >
+            {d}
+          </span>
+        ))}
       </div>
     </div>
   );
