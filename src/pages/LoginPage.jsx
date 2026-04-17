@@ -29,17 +29,17 @@ const ALL_DOMAINS = [
 function DomainTicker() {
   const [offset, setOffset] = useState(0);
   const rafRef = useRef(null);
-  const speed = 0.6; // px per frame
+  const speed = 0.8;
+  const itemWidth = 200; // fixed width — prevents overlap
+  const totalWidth = ALL_DOMAINS.length * itemWidth;
   // Duplicate for seamless loop
   const items = [...ALL_DOMAINS, ...ALL_DOMAINS];
-  const itemWidth = 160; // px per item
-  const totalWidth = ALL_DOMAINS.length * itemWidth;
 
   useEffect(() => {
     const animate = () => {
       setOffset(prev => {
-        const next = prev + speed;
-        return next >= totalWidth ? 0 : next;
+        const next = prev - speed; // negative = left to right (items appear from left)
+        return next <= -totalWidth ? 0 : next;
       });
       rafRef.current = requestAnimationFrame(animate);
     };
@@ -47,8 +47,9 @@ function DomainTicker() {
     return () => cancelAnimationFrame(rafRef.current);
   }, [totalWidth]);
 
-  // Which item is closest to center
-  const centerX = typeof window !== 'undefined' ? window.innerWidth * 0.25 : 300;
+  // Highlight zone: left quarter of screen (below "Master" text)
+  const highlightZoneStart = 0;
+  const highlightZoneEnd   = itemWidth * 1.2;
 
   return (
     <div className="domain-ticker-wrap">
@@ -56,16 +57,17 @@ function DomainTicker() {
       <div className="domain-ticker-fade right" />
       <div
         className="domain-ticker-track"
-        style={{ transform: `translateX(-${offset}px)` }}
+        style={{ transform: `translateX(${offset}px)` }}
       >
         {items.map((d, i) => {
-          const itemX = i * itemWidth - offset + itemWidth / 2;
-          const dist = Math.abs(itemX - centerX);
-          const isCenter = dist < itemWidth * 0.8;
+          // Position of this item's center relative to the ticker container
+          const itemCenter = i * itemWidth + itemWidth / 2 + offset;
+          const isHighlighted = itemCenter >= highlightZoneStart && itemCenter <= highlightZoneEnd;
           return (
             <span
               key={i}
-              className={`domain-ticker-item ${isCenter ? 'center' : ''}`}
+              className={`domain-ticker-item ${isHighlighted ? 'center' : ''}`}
+              style={{ width: itemWidth }}
             >
               {d}
             </span>
