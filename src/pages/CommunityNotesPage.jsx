@@ -58,6 +58,7 @@ export default function CommunityNotesPage() {
   const [postContent,    setPostContent]    = useState('');
   const [postTags,       setPostTags]       = useState('');
   const [postPrivate,    setPostPrivate]    = useState(false);
+  const [postFile,       setPostFile]       = useState(null); // { name, type, dataUrl }
 
   // Social modal
   const [showSocialModal, setShowSocialModal] = useState(false);
@@ -133,6 +134,15 @@ export default function CommunityNotesPage() {
     setDeleteConfirm(null);
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) { alert('File too large. Max 2MB.'); return; }
+    const reader = new FileReader();
+    reader.onload = (ev) => setPostFile({ name: file.name, type: file.type, dataUrl: ev.target.result });
+    reader.readAsDataURL(file);
+  };
+
   // ── Post Note ─────────────────────────────────────────────────────────────
   const handlePost = () => {
     if (!postTitle.trim() || !postContent.trim()) return;
@@ -154,11 +164,12 @@ export default function CommunityNotesPage() {
       isVerified:false,
       createdAt: new Date().toISOString(),
       socials:   { ...socials },
+      file:      postFile || null,
     };
     setNotes(prev => [note, ...prev]);
     // Reset
     setPostTitle(''); setPostDomain(DOMAINS[0]); setPostTopic('');
-    setPostTemplate('summary'); setPostContent(''); setPostTags(''); setPostPrivate(false);
+    setPostTemplate('summary'); setPostContent(''); setPostTags(''); setPostPrivate(false); setPostFile(null);
     setShowPostModal(false);
   };
 
@@ -346,6 +357,26 @@ export default function CommunityNotesPage() {
               </div>
 
               <div className="cn-field">
+                <label>📎 Attach File <span className="cn-label-hint">(optional, max 2MB — PDF, image, doc)</span></label>
+                <label className="cn-file-upload-label">
+                  <input
+                    type="file"
+                    accept=".pdf,.png,.jpg,.jpeg,.gif,.txt,.md,.doc,.docx"
+                    onChange={handleFileChange}
+                    className="cn-file-input"
+                  />
+                  <span className="cn-file-upload-btn">
+                    {postFile ? `✅ ${postFile.name}` : '📁 Choose File'}
+                  </span>
+                </label>
+                {postFile && (
+                  <button type="button" className="cn-file-remove" onClick={() => setPostFile(null)}>
+                    ✕ Remove file
+                  </button>
+                )}
+              </div>
+
+              <div className="cn-field">
                 <label>Visibility</label>
                 <div className="cn-visibility-toggle">
                   <button
@@ -481,6 +512,19 @@ function NoteCard({ note, userId, savedIds, isLiked, onLike, onSave, onDownload,
           <span key={tag} className="cn-chip cn-chip-tag">#{tag}</span>
         ))}
       </div>
+
+      {/* Attached file */}
+      {note.file && (
+        <div className="cn-note-file">
+          {note.file.type.startsWith('image/') ? (
+            <img src={note.file.dataUrl} alt={note.file.name} className="cn-note-file-img" />
+          ) : (
+            <a href={note.file.dataUrl} download={note.file.name} className="cn-note-file-link">
+              📎 {note.file.name}
+            </a>
+          )}
+        </div>
+      )}
 
       {/* Social icons */}
       {hasSocials && (
