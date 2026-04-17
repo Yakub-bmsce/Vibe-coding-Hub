@@ -331,3 +331,23 @@
 
   .hero-title { font-size: clamp(2rem, 8vw, 2.8rem); }
 }
+
+.auth-demo-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background: transparent;
+  border: 1.5px dashed rgba(167,139,250,0.4);
+  border-radius: 12px;
+  color: rgba(196,181,253,0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.auth-demo-btn:hover {
+  border-color: #a78bfa;
+  color: #c4b5fd;
+  background: rgba(124,58,237,0.08);
+}

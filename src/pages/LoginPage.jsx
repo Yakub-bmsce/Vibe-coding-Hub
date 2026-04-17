@@ -44,6 +44,11 @@ const LoginPage = () => {
     navigate('/dashboard');
   };
 
+  const handleDemo = () => {
+    login('demo@vibelearner.com', 'demo123');
+    navigate('/dashboard');
+  };
+
   return (
     <div className="landing-page">
       {/* ── Animated background ── */}
@@ -115,6 +120,10 @@ const LoginPage = () => {
               {isLogin ? '🚀 Start Learning' : '✨ Create Account'}
             </button>
           </form>
+
+          <button className="auth-demo-btn" onClick={handleDemo}>
+            🎮 Try Demo — no signup needed
+          </button>
 
           <p className="auth-switch">
             {isLogin ? "New here? " : "Already have an account? "}
