@@ -351,3 +351,52 @@
   color: #c4b5fd;
   background: rgba(124,58,237,0.08);
 }
+
+/* ── Domain Ticker ── */
+.domain-ticker-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 52px;
+  margin: 4px 0 8px;
+}
+
+.domain-ticker-fade {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.domain-ticker-fade.left  { left: 0;  background: linear-gradient(to right, #080612, transparent); }
+.domain-ticker-fade.right { right: 0; background: linear-gradient(to left,  #080612, transparent); }
+
+.domain-ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.domain-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(196,181,253,0.35);
+  transition: font-size 0.15s ease, color 0.15s ease, font-weight 0.15s ease;
+  flex-shrink: 0;
+  letter-spacing: -0.01em;
+}
+
+.domain-ticker-item.center {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #a78bfa;
+  text-shadow: 0 0 20px rgba(167,139,250,0.5);
+  letter-spacing: -0.03em;
+}

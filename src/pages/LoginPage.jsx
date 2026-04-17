@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/LoginPage.css';
@@ -12,22 +12,77 @@ const FEATURES = [
   { icon: '⚡', text: 'XP & rank system' },
 ];
 
-const DOMAINS = ['Python', 'JavaScript', 'React', 'DSA', 'ML/AI', 'DevOps', 'SQL', 'Flutter'];
+// All domains from the app
+const ALL_DOMAINS = [
+  'Python', 'JavaScript', 'Java', 'C++', 'TypeScript', 'Go', 'Rust',
+  'React', 'Next.js', 'Vue', 'Node.js', 'Tailwind',
+  'DSA', 'Arrays', 'Trees', 'Graphs', 'Dynamic Programming',
+  'SQL', 'MySQL', 'MongoDB', 'PostgreSQL', 'Redis',
+  'ML/AI', 'Neural Networks', 'TensorFlow', 'PyTorch',
+  'DevOps', 'Docker', 'Kubernetes', 'AWS', 'CI/CD',
+  'Cybersecurity', 'Encryption', 'Ethical Hacking',
+  'Flutter', 'Android', 'iOS', 'React Native',
+  'Networking', 'TCP/IP', 'DNS', 'OSI Model',
+];
+
+// Scrolling domain ticker component
+function DomainTicker() {
+  const [offset, setOffset] = useState(0);
+  const rafRef = useRef(null);
+  const speed = 0.6; // px per frame
+  // Duplicate for seamless loop
+  const items = [...ALL_DOMAINS, ...ALL_DOMAINS];
+  const itemWidth = 160; // px per item
+  const totalWidth = ALL_DOMAINS.length * itemWidth;
+
+  useEffect(() => {
+    const animate = () => {
+      setOffset(prev => {
+        const next = prev + speed;
+        return next >= totalWidth ? 0 : next;
+      });
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [totalWidth]);
+
+  // Which item is closest to center
+  const centerX = typeof window !== 'undefined' ? window.innerWidth * 0.25 : 300;
+
+  return (
+    <div className="domain-ticker-wrap">
+      <div className="domain-ticker-fade left" />
+      <div className="domain-ticker-fade right" />
+      <div
+        className="domain-ticker-track"
+        style={{ transform: `translateX(-${offset}px)` }}
+      >
+        {items.map((d, i) => {
+          const itemX = i * itemWidth - offset + itemWidth / 2;
+          const dist = Math.abs(itemX - centerX);
+          const isCenter = dist < itemWidth * 0.8;
+          return (
+            <span
+              key={i}
+              className={`domain-ticker-item ${isCenter ? 'center' : ''}`}
+            >
+              {d}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [domainIdx, setDomainIdx] = useState(0);
   const { login, signup } = useAuth();
   const navigate = useNavigate();
-
-  // Rotate domain names
-  useEffect(() => {
-    const t = setInterval(() => setDomainIdx(i => (i + 1) % DOMAINS.length), 2000);
-    return () => clearInterval(t);
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +121,7 @@ const LoginPage = () => {
 
           <h1 className="hero-title">
             <span className="hero-master">Master</span>
-            <span className="hero-rotating">{DOMAINS[domainIdx]}</span>
+            <DomainTicker />
             <span className="hero-sub">like never before</span>
           </h1>
 
