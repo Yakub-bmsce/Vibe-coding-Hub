@@ -361,13 +361,13 @@ const callGroqVisual = async (prompt, retries = 2) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
     body: JSON.stringify({
-      model: 'llama3-8b-8192',
+      model: 'mixtral-8x7b-32768',
       messages: [
-        { role: 'system', content: 'You are a JSON generator. Return ONLY valid JSON with no markdown, no code blocks, no explanation.' },
+        { role: 'system', content: 'You are a JSON generator. Return ONLY valid JSON. No markdown, no explanation, no code blocks.' },
         { role: 'user', content: prompt }
       ],
-      temperature: 0.5,
-      max_tokens: 1500
+      temperature: 0.3,
+      max_tokens: 1000
     })
   });
 
@@ -389,17 +389,17 @@ const callGroqVisual = async (prompt, retries = 2) => {
 };
 
 export const generateMindMap = (domain) => callGroqVisual(
-  `Create a mind map for ${domain} in CS. Return JSON only: {"root":"${domain}","branches":[{"label":"branch name","children":["child1","child2","child3"]}]} with 4-5 branches each having 3-4 children.`
+  `Create a mind map for ${domain} in CS. Return valid JSON with keys: root (string) and branches (array of objects with label string and children array of strings). Include 4-5 branches each with 3-4 children.`
 );
 
 export const generateFlowchart = (domain) => callGroqVisual(
-  `Create a learning flowchart for ${domain} in CS with 6 steps. Return JSON only: {"steps":[{"id":"s1","label":"Start","type":"start"},{"id":"s2","label":"Learn basics","type":"process"},{"id":"s3","label":"Practice?","type":"decision"},{"id":"s4","label":"Do exercises","type":"process"},{"id":"s5","label":"Build project","type":"process"},{"id":"s6","label":"Done","type":"end"}]} Use types: start, process, decision, end.`
+  `Create a learning flowchart for ${domain} in CS. Return valid JSON with key: steps (array of objects with id, label, type). Types must be: start, process, decision, or end. Include 6-7 steps.`
 );
 
 export const generateDiagram = (domain) => callGroqVisual(
-  `Create an architecture diagram for ${domain} in CS. Return JSON only: {"components":[{"id":"c1","name":"name","description":"desc"},{"id":"c2","name":"name2","description":"desc2"}],"connections":[{"from":"c1","to":"c2","label":"uses"}]} with 4-5 components.`
+  `Create an architecture diagram for ${domain} in CS. Return valid JSON with keys: components (array of objects with id, name, description) and connections (array of objects with from, to, label). Include 4-5 components.`
 );
 
 export const generateTimeline = (domain) => callGroqVisual(
-  `Create a learning timeline for ${domain} in CS. Return JSON only: {"phases":[{"week":"Week 1-2","title":"Basics","topics":["topic1","topic2"],"milestone":"Can do X"}]} with 5-6 phases from beginner to advanced.`
+  `Create a learning timeline for ${domain} in CS. Return valid JSON with key: phases (array of objects with week, title, topics array, milestone). Include 5-6 phases from beginner to advanced.`
 );
