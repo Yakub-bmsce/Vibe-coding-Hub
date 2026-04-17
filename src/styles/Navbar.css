@@ -88,3 +88,43 @@
   .user-info { display: none; }
   .navbar-brand h2 { font-size: 16px; }
 }
+
+/* ── Notification Bell ── */
+.cn-bell-btn {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+.cn-bell-btn:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--neon-glow);
+}
+.cn-bell-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ec4899;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  line-height: 1;
+  font-family: 'DM Sans', sans-serif;
+}

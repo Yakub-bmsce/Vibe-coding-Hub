@@ -51,6 +51,7 @@ function AppContent() {
         <Route path="/visual-learning/:type" element={<ProtectedRoute><VisualLearningPage /></ProtectedRoute>} />
         <Route path="/visual-learning/:type/:domainId" element={<ProtectedRoute><VisualLearningPage /></ProtectedRoute>} />
         <Route path="/community-notes" element={<ProtectedRoute><CommunityNotesPage /></ProtectedRoute>} />
+        <Route path="/community-notes/:noteId" element={<ProtectedRoute><CommunityNotesPage /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
       {isAuthenticated && !isLoginPage && <ChatbotWidget />}
