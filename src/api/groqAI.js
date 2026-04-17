@@ -386,10 +386,20 @@ const callGroqVisual = async (prompt, retries = 2) => {
 
   const data = await response.json();
   const text = data.choices[0].message.content;
-  const clean = text.replace(/^```[a-z]*\n?/gm, '').replace(/^```\n?/gm, '').trim();
+  // Strip markdown code blocks
+  let clean = text.replace(/```[\w]*\n?/g, '').replace(/```/g, '').trim();
+  // Find the first complete JSON object or array
   const jsonMatch = clean.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
   if (!jsonMatch) throw new Error('No JSON found in response');
-  return JSON.parse(jsonMatch[0]);
+  try {
+    return JSON.parse(jsonMatch[0]);
+  } catch {
+    // Try to fix common issues: trailing commas, unquoted keys
+    const fixed = jsonMatch[0]
+      .replace(/,\s*([}\]])/g, '$1')   // remove trailing commas
+      .replace(/'/g, '"');              // replace single quotes
+    return JSON.parse(fixed);
+  }
 };
 
 export const generateMindMap = (domain) => callGroqVisual(
