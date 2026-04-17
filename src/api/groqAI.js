@@ -378,7 +378,11 @@ const callGroqVisual = async (prompt, retries = 2) => {
     return callGroqVisual(prompt, retries - 1);
   }
 
-  if (!response.ok) throw new Error(`API error ${response.status}`);
+  if (!response.ok) {
+    const errBody = await response.json().catch(() => ({}));
+    const msg = errBody?.error?.message || `API error ${response.status}`;
+    throw new Error(msg);
+  }
 
   const data = await response.json();
   const text = data.choices[0].message.content;
