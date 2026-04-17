@@ -4,7 +4,7 @@
 }
 
 .dashboard-content {
-  margin-left: 60px;
+  margin-left: 220px;
   padding: 40px 20px;
   transition: margin-left 0.3s;
 }
@@ -448,3 +448,4 @@
     padding-bottom: 72px;
   }
 }
+

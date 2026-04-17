@@ -26,7 +26,7 @@ const mobileNav = [
 ];
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(() => window.innerWidth > 768);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -51,12 +51,8 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* ── Desktop sidebar ── */}
-      <aside
-        className={`sidebar ${isOpen ? 'open' : ''}`}
-        onMouseEnter={() => setIsOpen(true)}
-        onMouseLeave={() => setIsOpen(false)}
-      >
+      {/* ── Desktop sidebar — always expanded ── */}
+      <aside className="sidebar">
         <div className="sidebar-avatar-mini" title={username}>{avatar}</div>
 
         <div className="sidebar-profile">

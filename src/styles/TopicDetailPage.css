@@ -1,7 +1,7 @@
 .topic-detail-page {
   min-height: 100vh;
   background: var(--bg-page);
-  padding-left: 60px;
+  padding-left: 220px;
   padding-top: 52px;
 }
 
@@ -1111,3 +1111,4 @@
 .dd-handle { color: rgba(233,179,255,0.4); font-size: 1.1rem; }
 .dd-item code { color: #e9b3ff; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
 .dd-wrong { color: #f87171; text-align: center; margin-top: 0.5rem; font-size: 0.9rem; }
+

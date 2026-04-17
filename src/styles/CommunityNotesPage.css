@@ -1,6 +1,6 @@
 /* ── Layout ─────────────────────────────────────────────────────────────── */
 .cn-page    { min-height: 100vh; background: var(--bg-page); }
-.cn-content { margin-left: 60px; padding: 32px 24px 80px; }
+.cn-content { margin-left: 220px; padding: 32px 24px 80px; }
 
 /* ── Disclaimer Banner ──────────────────────────────────────────────────── */
 .cn-disclaimer-banner {
@@ -428,3 +428,4 @@
   .cn-card-actions { gap: 6px; }
   .cn-action-btn   { font-size: 0.75rem; padding: 5px 10px; }
 }
+

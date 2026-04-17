@@ -1,5 +1,5 @@
 .vl-page { min-height: 100vh; background: var(--bg-page); }
-.vl-content { margin-left: 60px; padding: 48px 32px 80px; }
+.vl-content { margin-left: 220px; padding: 48px 32px 80px; }
 
 /* ── Header ── */
 .vl-header { text-align: center; margin-bottom: 40px; }
@@ -236,3 +236,4 @@
   .vl-tl-dot { left: 20px; }
   .vl-tl-card { max-width: 100%; }
 }
+
