@@ -4,6 +4,7 @@
 }
 
 .video-content {
+  padding-top: 52px;
   margin-left: 220px;
   padding: 40px 20px;
 }
@@ -77,6 +78,7 @@
 
 @media (max-width: 768px) {
   .video-content {
+  padding-top: 52px;
     margin-left: 0;
   }
   
@@ -88,8 +90,11 @@
 
 @media (max-width: 768px) {
   .video-content {
+  padding-top: 52px;
     margin-left: 0;
     padding-bottom: 72px;
   }
 }
+
+
 

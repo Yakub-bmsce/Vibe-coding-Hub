@@ -1,6 +1,7 @@
 /* ── Layout ─────────────────────────────────────────────────────────────── */
 .cn-page    { min-height: 100vh; background: var(--bg-page); }
-.cn-content { margin-left: 220px; padding: 32px 24px 80px; }
+.cn-content {
+  padding-top: 52px; margin-left: 220px; padding: 32px 24px 80px; }
 
 /* ── Disclaimer Banner ──────────────────────────────────────────────────── */
 .cn-disclaimer-banner {
@@ -501,3 +502,6 @@
   background: rgba(124,58,237,0.2);
   color: #e9b3ff;
 }
+
+
+

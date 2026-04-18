@@ -4,6 +4,7 @@
 }
 
 .lb-content {
+  padding-top: 52px;
   margin-left: 220px;
   padding: 40px 20px 80px;
 }
@@ -164,7 +165,11 @@
 .lb-streak { color: #fb923c; font-weight: 600; font-size: 0.82rem; }
 
 @media (max-width: 768px) {
-  .lb-content { margin-left: 0; padding: 20px 16px 80px; }
+  .lb-content {
+  padding-top: 52px; margin-left: 0; padding: 20px 16px 80px; }
   .lb-row { padding: 12px 14px; gap: 10px; }
 }
+
+
+
 

@@ -1,5 +1,6 @@
 .vl-page { min-height: 100vh; background: var(--bg-page); }
-.vl-content { margin-left: 220px; padding: 48px 32px 80px; }
+.vl-content {
+  padding-top: 52px; margin-left: 220px; padding: 48px 32px 80px; }
 
 /* ── Header ── */
 .vl-header { text-align: center; margin-bottom: 40px; }
@@ -228,7 +229,8 @@
   .vl-types { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .vl-content { margin-left: 0; padding: 24px 16px 80px; }
+  .vl-content {
+  padding-top: 52px; margin-left: 0; padding: 24px 16px 80px; }
   .vl-types { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .vl-domains { grid-template-columns: 1fr; }
   .vl-timeline::before { left: 20px; }
@@ -236,4 +238,7 @@
   .vl-tl-dot { left: 20px; }
   .vl-tl-card { max-width: 100%; }
 }
+
+
+
 
